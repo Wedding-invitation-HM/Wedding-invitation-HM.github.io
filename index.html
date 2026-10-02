@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#2b1517">
 <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
-<meta property="og:title" content="Menna &amp; Hazem · دعوة زفاف">
+<meta property="og:title" content="Hazem &amp; Menna · دعوة زفاف">
 <meta property="og:description" content="Friday 20 November 2026 · 7:00 PM · El Masa Wedding Hall, Banha">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://wedding-invitation-hm.github.io/">
-<meta property="og:image" content="https://wedding-invitation-hm.github.io/og.jpg">
+<meta property="og:image" content="https://wedding-invitation-hm.github.io/og.jpg?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <style>[hidden]{display:none!important} :root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}</style>
-<title>Menna & Hazem</title>
-<meta name="description" content="Wedding invitation of Menna & Hazem — Friday 20 November 2026, El Masa Wedding Hall, Banha">
+<title>Hazem & Menna</title>
+<meta name="description" content="Wedding invitation of Hazem & Menna — Friday 20 November 2026, El Masa Wedding Hall, Banha">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" as="image" href="env-surface.webp">
@@ -27,7 +27,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Amiri:wght@400;700&family=Cinzel:wght@400;500;600&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Imperial+Script&display=swap">
 <style>
-/* Menna & Hazem — a 3D envelope that opens (the dove flies out of the seal) into an ivory invitation.
+/* Hazem & Menna — a 3D envelope that opens (the dove flies out of the seal) into an ivory invitation.
    Committed look: burgundy surface · ivory paper · antique gold · wine-red ink. */
 :root{
   color-scheme:dark;
@@ -204,24 +204,79 @@ img{display:block; max-width:100%; -webkit-touch-callout:none; -webkit-user-drag
 .map-cta .dot{color:var(--gold)}
 .sign{font-family:var(--it); font-style:italic; color:var(--ink-soft); font-size:clamp(1rem,4.2vw,1.18rem); margin-top:14px}
 
-/* 3D reveal choreography (armed by script only) */
+/* reveal choreography (armed by script only) */
 html.arm .rv{opacity:0; transform:perspective(900px) translateY(22px) rotateX(18deg); transform-origin:50% 0%}
 html.arm .rv.in{opacity:1; transform:none; transition:opacity 1.1s ease var(--d,0s), transform 1.3s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
+/* monogram is drawn top to bottom, then the names glide in from either side */
 html.arm .inv-lock .mono-wrap{clip-path:inset(0 0 100% 0)}
 html.arm .inv-lock.in .mono-wrap{clip-path:inset(0 0 0 0); transition:clip-path 2.4s cubic-bezier(.45,.05,.2,1) .15s}
 html.arm .inv-lock .ln{opacity:0}
-html.arm .inv-lock .ln-l{transform:translateX(14px)} html.arm .inv-lock .ln-r{transform:translateX(-14px)}
-html.arm .inv-lock.in .ln{opacity:1; transform:none; transition:opacity 1.2s ease 1.5s, transform 1.4s cubic-bezier(.2,.7,.2,1) 1.5s}
+html.arm .inv-lock .ln-l{transform:translateX(18px)} html.arm .inv-lock .ln-r{transform:translateX(-18px)}
+html.arm .inv-lock.in .ln{opacity:1; transform:none; transition:opacity 1.3s ease 1.5s, transform 1.6s cubic-bezier(.2,.7,.2,1) 1.5s}
+html.arm .inv-lock.in .ln-r{transition-delay:1.75s}
+/* Bismillah written in ink from right to left; the heart blooms after it */
 html.arm .rv-write{clip-path:inset(-25% 0 -25% 100%)}
 html.arm .rv-write.in{clip-path:inset(-25% 0 -25% 0); transition:clip-path 2.1s cubic-bezier(.5,.1,.3,1) var(--d,0s)}
-html.arm .rv-lines .l{opacity:0; transform:translateY(10px); filter:blur(2px)}
-html.arm .rv-lines.in .l{opacity:1; transform:none; filter:none; transition:opacity .9s ease, transform 1s cubic-bezier(.2,.7,.2,1), filter .9s ease}
-html.arm .rv-lines.in .l:nth-child(2){transition-delay:calc(var(--d,0s) + .35s)}
-html.arm .rv-lines.in .l:nth-child(3){transition-delay:calc(var(--d,0s) + .7s)}
-html.arm .rv-lines.in .l:nth-child(4){transition-delay:calc(var(--d,0s) + 1.05s)}
-html.arm .rv-lines.in .l:nth-child(1){transition-delay:var(--d,0s)}
-html.arm .fl{opacity:0}
-html.arm .fl.in{opacity:1; transition:opacity 1.8s ease .1s}
+html.arm .rv-write svg{transform:scale(0); opacity:0}
+html.arm .rv-write.in svg{transform:none; opacity:1; transition:transform .9s cubic-bezier(.3,1.6,.5,1) calc(var(--d,0s) + 1.9s), opacity .4s ease calc(var(--d,0s) + 1.9s)}
+/* Arabic lines unveil like ink, right to left, one after another */
+html.arm .rv-lines .l{clip-path:inset(-30% 0 -30% 100%); opacity:.2; transform:translateY(6px)}
+html.arm .rv-lines.in .l{clip-path:inset(-30% 0 -30% 0); opacity:1; transform:none; transition:clip-path 1.5s cubic-bezier(.5,.1,.3,1) var(--ld), opacity 1.1s ease var(--ld), transform 1.4s cubic-bezier(.2,.7,.2,1) var(--ld)}
+html.arm .rv-lines .l:nth-child(1){--ld:var(--d,0s)}
+html.arm .rv-lines .l:nth-child(2){--ld:calc(var(--d,0s) + .45s)}
+html.arm .rv-lines .l:nth-child(3){--ld:calc(var(--d,0s) + .9s)}
+html.arm .rv-lines .l:nth-child(4){--ld:calc(var(--d,0s) + 1.35s)}
+/* verse and English lines arrive word by word */
+html.arm .rv-words .w{display:inline-block; opacity:0; transform:translateY(.45em); filter:blur(3px)}
+html.arm .rv-words.in .w{opacity:1; transform:none; filter:none; transition:opacity .9s ease var(--wd), transform 1.1s cubic-bezier(.2,.7,.2,1) var(--wd), filter .9s ease var(--wd)}
+/* gold dividers draw outward from the diamond, which turns into place */
+html.arm .rv-rule i{transform:scaleX(0)} html.arm .rv-rule i:first-child{transform-origin:100% 50%} html.arm .rv-rule i:last-child{transform-origin:0 50%}
+html.arm .rv-rule s{opacity:0; transform:rotate(-135deg) scale(.4)}
+html.arm .rv-rule.in i{transform:none; transition:transform 1.5s cubic-bezier(.6,.05,.2,1) calc(var(--d,0s) + .25s)}
+html.arm .rv-rule.in s{opacity:1; transform:rotate(45deg); transition:transform 1.1s cubic-bezier(.2,.8,.2,1) var(--d,0s), opacity .6s ease var(--d,0s)}
+/* the date opens from the centre: frame unveils, day and time slide in, the 20 settles */
+html.arm .rv-when{clip-path:inset(0 50% 0 50%)}
+html.arm .rv-when.in{clip-path:inset(-10% -2% -10% -2%); transition:clip-path 1.4s cubic-bezier(.65,.05,.25,1) var(--d,0s)}
+html.arm .rv-when .side{opacity:0} html.arm .rv-when .side:first-child{transform:translateX(-14px)} html.arm .rv-when .side:last-child{transform:translateX(14px)}
+html.arm .rv-when.in .side{opacity:1; transform:none; transition:opacity 1s ease calc(var(--d,0s) + .7s), transform 1.2s cubic-bezier(.2,.7,.2,1) calc(var(--d,0s) + .7s)}
+html.arm .rv-when .big{opacity:0; transform:scale(1.18)}
+html.arm .rv-when.in .big{opacity:1; transform:none; transition:opacity 1.2s ease calc(var(--d,0s) + .35s), transform 1.6s cubic-bezier(.2,.7,.2,1) calc(var(--d,0s) + .35s)}
+/* venue lines rise in turn */
+html.arm .rv-stag > *{opacity:0; transform:translateY(14px)}
+html.arm .rv-stag.in > *{opacity:1; transform:none; transition:opacity 1s ease var(--sd), transform 1.2s cubic-bezier(.2,.7,.2,1) var(--sd)}
+html.arm .rv-stag > :nth-child(1){--sd:var(--d,0s)} html.arm .rv-stag > :nth-child(2){--sd:calc(var(--d,0s) + .25s)}
+html.arm .rv-stag > :nth-child(3){--sd:calc(var(--d,0s) + .5s)} html.arm .rv-stag > :nth-child(4){--sd:calc(var(--d,0s) + .75s)}
+/* map: the route draws itself, then the pin drops onto the hall */
+html.arm .map .route{stroke-dasharray:1; stroke-dashoffset:1}
+html.arm .map.in .route{stroke-dashoffset:0; transition:stroke-dashoffset 1.8s cubic-bezier(.5,.1,.3,1) .5s}
+html.arm .map .pin{opacity:0; transform:translate(-50%,-260%)}
+html.arm .map.in .pin{opacity:1; transform:translate(-50%,-100%); transition:transform .9s cubic-bezier(.3,1.45,.55,1) 1.7s, opacity .3s ease 1.7s}
+/* roses bloom open from their corners, then breathe gently */
+html.arm .fl{opacity:0; rotate:-5deg; translate:-3% -3%}
+html.arm .fl-br{rotate:5deg; translate:3% 3%}
+html.arm .fl.in{opacity:1; rotate:0deg; translate:0 0; transition:opacity 2s ease .1s, rotate 2.6s cubic-bezier(.2,.7,.2,1) .1s, translate 2.6s cubic-bezier(.2,.7,.2,1) .1s}
+html.arm .fl.in.breathe{animation:breathe 9s ease-in-out infinite alternate}
+html.arm .fl-br.in.breathe{animation-name:breatheB; animation-duration:10s}
+@keyframes breathe{from{rotate:0deg} to{rotate:1.1deg}}
+@keyframes breatheB{from{rotate:0deg} to{rotate:-1.1deg}}
+/* the gold frame line fades in with the page */
+html.arm .frame-line{opacity:0} html.arm .paper.lit .frame-line{opacity:1; transition:opacity 2.4s ease .4s}
+
+/* scroll cue: a gold bead gliding down a hairline, nudging guests to scroll through the invitation */
+.scroll-cue{position:fixed; z-index:59; left:50%; bottom:calc(22px + env(safe-area-inset-bottom,0px)); transform:translate(-50%,14px); display:flex; flex-direction:column; align-items:center; gap:5px;
+  padding:10px 18px 7px; border:1px solid rgba(176,141,74,.5); border-radius:999px; background:rgba(244,237,224,.95); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+  box-shadow:0 12px 28px -14px rgba(60,20,20,.45); color:var(--gold-deep); cursor:pointer; opacity:0; pointer-events:none; transition:opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1); -webkit-tap-highlight-color:transparent}
+.scroll-cue.show{opacity:1; transform:translate(-50%,0); pointer-events:auto}
+.scroll-cue .sc-en{font-family:var(--caps); text-transform:uppercase; letter-spacing:.38em; padding-left:.38em; font-size:.62rem; font-weight:500}
+.scroll-cue .sc-ar{font-family:var(--ar); font-size:.86rem; line-height:1.6; color:var(--ink-soft)}
+.scroll-cue .sc-track{position:relative; width:1px; height:30px; background:linear-gradient(180deg,rgba(176,141,74,0),rgba(176,141,74,.8),rgba(176,141,74,0))}
+.scroll-cue .sc-track i{position:absolute; left:50%; top:0; width:5px; height:5px; margin-left:-2.5px; border-radius:50%; background:var(--gold); box-shadow:0 0 8px 2px rgba(227,198,129,.8); animation:bead 1.9s cubic-bezier(.45,0,.3,1) infinite}
+@keyframes bead{0%{transform:translateY(0); opacity:0} 18%{opacity:1} 75%{opacity:1} 100%{transform:translateY(26px); opacity:0}}
+
+@media (prefers-reduced-motion:reduce){
+  html.arm .rv,html.arm .rv *,html.arm .rv-lines .l,html.arm .rv-words .w,html.arm .rv-rule *,html.arm .rv-when,html.arm .rv-when *,html.arm .rv-stag > *,html.arm .fl,html.arm .map .route,html.arm .map .pin,html.arm .rv-write,html.arm .rv-write svg,html.arm .inv-lock *{transition:none!important; animation:none!important}
+  .scroll-cue .sc-track i{animation:none; top:14px}
+}
 
 .music{position:fixed; z-index:59; right:16px; bottom:calc(16px + env(safe-area-inset-bottom,0px)); width:46px; height:46px; border-radius:50%; border:1px solid rgba(176,141,74,.7); background:rgba(242,234,219,.92); color:var(--wine); display:none; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 8px 22px -8px rgba(30,6,10,.5); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px)}
 .music.visible{display:flex; animation:fadeIn .8s ease both}
@@ -246,7 +301,7 @@ html.arm .fl.in{opacity:1; transition:opacity 1.8s ease .1s}
       <div class="tilt" id="tilt">
         <div class="grp" id="grp">
           <div class="box card-box"><div class="l-card paper-bg" id="card"><div class="card-in" id="cardIn">
-            <div class="lockup card-lock"><div class="mono-wrap"><img src="monogram.webp" alt=""></div><span class="ln ln-l">Menna</span><span class="ln ln-r">Hazem</span></div>
+            <div class="lockup card-lock"><div class="mono-wrap"><img src="monogram.webp" alt=""></div><span class="ln ln-l">Hazem</span><span class="ln ln-r">Menna</span></div>
             <span class="cd">20 · 11 · 2026</span>
           </div></div></div>
           <div class="flaps" id="flaps">
@@ -266,7 +321,7 @@ html.arm .fl.in{opacity:1; transition:opacity 1.8s ease .1s}
   </div>
   <div class="cover-title" id="coverTitle"><div class="ct-in">
     <span class="ct-ar">دعوة زفاف</span>
-    <div class="lockup cover-lock"><div class="mono-wrap"><img src="monogram-gold.webp" alt="م ح"></div><span class="ln ln-l">Menna</span><span class="ln ln-r">Hazem</span></div>
+    <div class="lockup cover-lock"><div class="mono-wrap"><img src="monogram-gold.webp" alt="م ح"></div><span class="ln ln-l">Hazem</span><span class="ln ln-r">Menna</span></div>
   </div></div>
   <div class="cover-hint" id="coverHint"><div class="ch-in">
     <span>Tap the seal to open</span>
@@ -287,18 +342,18 @@ html.arm .fl.in{opacity:1; transition:opacity 1.8s ease .1s}
         <span>بسم الله الرحمن الرحيم</span>
         <svg viewBox="0 0 24 24" aria-label="white heart"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.3 2 5 5.2 5c2 0 3.3 1.1 4.1 2.4C10.1 6.1 11.4 5 13.4 5 16.6 5 18.2 8.3 16.6 11.7 14.1 16.4 12 21 12 21Z" fill="#fffaf0" stroke="#b08d4a" stroke-width="1.2"/></svg>
       </div>
-      <p class="verse rv" style="--d:.12s"><b>﴿</b> وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً <b>﴾</b></p>
-      <div class="rule rv" style="--d:.2s"><i></i><s></s><i></i></div>
+      <p class="verse rv-words" style="--d:.5s"><b>﴿</b> وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً <b>﴾</b></p>
+      <div class="rule rv-rule" style="--d:.9s"><i></i><s></s><i></i></div>
       <p class="ar-p rv-lines" style="--d:.28s">
         <span class="l">بكل الحب والسعادة،</span>
-        <span class="l">يسعدنا أن نشارككم أجمل لحظات عمرنا،</span>
+        <span class="l">يسعدنا أن ندعوكم لأجمل لحظات عمرنا،</span>
         <span class="l">ونحتفل معكم ببداية حكاية جديدة</span>
         <span class="l">كتب الله لها أن تجمع بين قلبين.</span>
       </p>
 
-      <h1 class="lockup inv-lock" aria-label="Menna and Hazem">
+      <h1 class="lockup inv-lock" aria-label="Hazem and Menna">
         <span class="mono-wrap glint"><img src="monogram.webp" alt="م ح" width="640" height="1324"></span>
-        <span class="ln ln-l">Menna</span><span class="ln ln-r">Hazem</span>
+        <span class="ln ln-l">Hazem</span><span class="ln ln-r">Menna</span>
       </h1>
 
       <p class="ar-p rv-lines">
@@ -307,10 +362,10 @@ html.arm .fl.in{opacity:1; transition:opacity 1.8s ease .1s}
         <span class="l">ونتمنى أن تكونوا جزءًا من هذه اللحظة المميزة،</span>
         <span class="l">فوجودكم بيننا هو ما يجعل فرحتنا تكتمل.</span>
       </p>
-      <p class="en-line rv">A beautiful beginning to our forever.</p>
-      <div class="rule rv"><i></i><s></s><i></i></div>
+      <p class="en-line rv-words">A beautiful beginning to our forever.</p>
+      <div class="rule rv-rule"><i></i><s></s><i></i></div>
 
-      <div class="when rv">
+      <div class="when rv-when">
         <div class="side"><span>Friday</span><span class="a">الجمعة</span></div>
         <div class="big">20</div>
         <div class="side"><span>7:00 PM</span><span class="a">مساءً</span></div>
@@ -318,7 +373,7 @@ html.arm .fl.in{opacity:1; transition:opacity 1.8s ease .1s}
       <div class="month rv">November 2026</div>
       <div class="ar-date rv">الجمعة ٢٠ نوفمبر ٢٠٢٦ · السابعة مساءً</div>
 
-      <div class="venue rv">
+      <div class="venue rv-stag">
         <div class="lbl">Venue &nbsp;·&nbsp; <span class="ar">المكان</span></div>
         <div class="v-en">El Masa Wedding Hall</div>
         <div class="v-ar">قاعة الماسة</div>
@@ -331,7 +386,7 @@ html.arm .fl.in{opacity:1; transition:opacity 1.8s ease .1s}
             <path d="M-10 118 C 60 96 110 132 170 112 S 270 84 330 100" fill="none" stroke="#c9d6cf" stroke-width="16" opacity=".7"/>
             <g fill="none" stroke="#c9ab6c" stroke-linecap="round">
               <path d="M-10 52 H330" stroke-width="3"/><path d="M78 -10 V170" stroke-width="3"/><path d="M232 -10 V170" stroke-width="3"/>
-              <path d="M-10 84 L120 84 L168 60 L330 60" stroke-width="5" stroke="#b9934f"/>
+              <path class="route" pathLength="1" d="M-10 84 L120 84 L168 60 L330 60" stroke-width="5" stroke="#b9934f"/>
               <path d="M30 -10 V170 M140 -10 V170 M280 -10 V170 M-10 22 H330 M-10 140 H330" stroke-width="1.2" opacity=".55"/>
             </g>
           </svg>
@@ -341,13 +396,13 @@ html.arm .fl.in{opacity:1; transition:opacity 1.8s ease .1s}
         <div class="map-cta"><span>Open in Maps</span><span class="dot">·</span><span class="ar">افتح الموقع على الخريطة</span></div>
       </a>
 
-      <div class="rule rv"><i></i><s></s><i></i></div>
+      <div class="rule rv-rule"><i></i><s></s><i></i></div>
       <p class="ar-p rv-lines">
         <span class="l">نسعد بوجودكم ومشاركتكم لنا</span>
         <span class="l">فرحتنا في ليلة العمر،</span>
         <span class="l">لنصنع معًا ذكريات تبقى في القلب دائمًا.</span>
       </p>
-      <p class="sign rv">With love, we await your presence.</p>
+      <p class="sign rv-words">With love, we await your presence.</p>
     </div>
   </article>
 </main>
@@ -355,6 +410,9 @@ html.arm .fl.in{opacity:1; transition:opacity 1.8s ease .1s}
 <button class="music" id="music" aria-label="Mute or play music — الموسيقى">
   <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
   <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="m23 9-6 6"/><path d="m17 9 6 6"/></svg>
+</button>
+<button class="scroll-cue" id="scrollCue" type="button" aria-label="Scroll down — مرّر للأسفل" tabindex="-1">
+  <span class="sc-en">Scroll</span><span class="sc-track"><i></i></span><span class="sc-ar">مرّر للأسفل</span>
 </button>
 
 <script>
@@ -548,7 +606,19 @@ var startMusic=function(){};
 
   // ---- invitation reveal + depth on scroll
   function reveal(){
-    var items=[].slice.call(document.querySelectorAll('.rv,.fl,.inv-lock,.rv-write,.rv-lines')), vh=innerHeight, i=0;
+    // split word-reveal lines into words (Arabic words stay whole, so letters keep joining)
+    [].forEach.call(document.querySelectorAll('.rv-words'),function(el){
+      var n=0, base=parseFloat(el.style.getPropertyValue('--d'))||0;
+      [].slice.call(el.childNodes).forEach(function(node){
+        if(node.nodeType===3){ var frag=document.createDocumentFragment();
+          node.textContent.split(/(\s+)/).forEach(function(t){ if(!t) return; if(/^\s+$/.test(t)){ frag.appendChild(document.createTextNode(t)); return }
+            var w=document.createElement('span'); w.className='w'; w.textContent=t; w.style.setProperty('--wd',(base+n++*.07).toFixed(2)+'s'); frag.appendChild(w) });
+          node.parentNode.replaceChild(frag,node) }
+        else if(node.nodeType===1){ node.classList.add('w'); node.style.setProperty('--wd',(base+n++*.07).toFixed(2)+'s') }
+      });
+    });
+    $('paper').classList.add('lit');
+    var items=[].slice.call(document.querySelectorAll('.rv,.fl,.inv-lock,.rv-write,.rv-lines,.rv-words,.rv-rule,.rv-when,.rv-stag')), vh=innerHeight, i=0;
     items.forEach(function(el){ var r=el.getBoundingClientRect(); if(r.top<vh*.92){ if(!el.style.getPropertyValue('--d')) el.style.setProperty('--d',(.12+i*.1).toFixed(2)+'s'); i++; el.classList.add('in') } });
     if('IntersectionObserver' in window){
       var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target) } }) },{rootMargin:'0px 0px -8% 0px',threshold:.12});
@@ -556,8 +626,15 @@ var startMusic=function(){};
     } else items.forEach(function(el){ el.classList.add('in') });
     var tl=$('flTL'), br=$('flBR'), ticking=false;
     function depth(){ ticking=false; var y=scrollY, max=Math.max(1,document.documentElement.scrollHeight-innerHeight);
-      tl.style.transform='scale('+(1+Math.min(y/700,1)*.06).toFixed(4)+')';
-      br.style.transform='scale('+(1+Math.min((max-y)/700,1)*.06).toFixed(4)+')' }
+      tl.style.scale=(1+Math.min(y/700,1)*.06).toFixed(4);
+      br.style.scale=(1+Math.min((max-y)/700,1)*.06).toFixed(4) }
+    setTimeout(function(){ tl.classList.add('breathe'); br.classList.add('breathe') },3000);
+    // scroll cue: appears once the first lines have been written, leaves as soon as the guest scrolls
+    var cue=$('scrollCue'), cueDone=false, top0=scrollY;
+    function hideCue(){ if(cueDone) return; cueDone=true; cue.classList.remove('show'); setTimeout(function(){ cue.hidden=true },900) }
+    setTimeout(function(){ if(!cueDone&&scrollY-top0<40&&document.documentElement.scrollHeight>innerHeight*1.3) cue.classList.add('show') },3200);
+    addEventListener('scroll',function(){ if(!cueDone&&scrollY-top0>50) hideCue() },{passive:true});
+    cue.addEventListener('click',function(){ hideCue(); try{ scrollBy({top:innerHeight*.7,behavior:'smooth'}) }catch(e){ scrollBy(0,innerHeight*.7) } });
     if(!REDUCE){ addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(depth) } },{passive:true}); depth() }
   }
   function finish(viaExpander){
