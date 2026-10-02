@@ -98,17 +98,15 @@ img{display:block; max-width:100%}
 .halo::after{animation-delay:2.9s}
 @keyframes ring{0%{transform:scale(.82);opacity:0} 22%{opacity:.85} 100%{transform:scale(1.6);opacity:0}}
 
-/* the dove (real dove lifted from the seal; wings beat on their shoulders — rotation only, no squashing) */
-.dove{left:44.438%; top:51.275%; width:11.223%; height:9.243%; z-index:7; visibility:hidden; will-change:transform,opacity; pointer-events:none}
-.dove img{position:absolute; inset:0; width:100%; height:100%}
+/* the dove: one whole sprite (never cut into pieces); 12 pre-rendered frames where the wings bend from the shoulder */
+.dove{left:43.527%; top:51.372%; width:14.252%; height:8.869%; z-index:7; visibility:hidden; will-change:transform,opacity; pointer-events:none}
 .dove .glow{position:absolute; inset:-30%; border-radius:50%; background:radial-gradient(closest-side,rgba(255,236,190,.45),rgba(255,236,190,0)); opacity:0}
 .dove.fly .glow{opacity:1; transition:opacity .4s ease}
-.dove .wf{transform-origin:52.9% 58.8%} .dove .wb{transform-origin:40.9% 47.7%}
+.dove .dv-sp{position:absolute; inset:0; overflow:hidden}
+.dove .dv-sp img{position:absolute; left:0; top:0; width:1200%; height:100%; max-width:none}
 .dove.fly{visibility:visible}
-.dove.fly .wf{animation:beatF .22s cubic-bezier(.45,0,.55,1) infinite alternate}
-.dove.fly .wb{animation:beatB .22s cubic-bezier(.45,0,.55,1) infinite alternate}
-@keyframes beatF{from{transform:rotate(-6deg)} to{transform:rotate(16deg)}}
-@keyframes beatB{from{transform:rotate(6deg)} to{transform:rotate(-14deg)}}
+.dove.fly .dv-sp img{animation:flap .5s steps(12) infinite}
+@keyframes flap{to{transform:translateX(-100%)}}
 
 /* name lockups: the monogram's tail runs between the names */
 .lockup{position:relative; display:flex; justify-content:center; width:100%; margin:0}
@@ -247,7 +245,7 @@ html.arm .fl.in{opacity:1; transition:opacity 1.8s ease .1s}
             <div class="tshadow" id="tshadow"><i></i></div>
             <div class="f3 tflap" id="tflap"><img class="fr withdove" src="env-flap.webp" alt=""><img class="fr nodove" src="env-flap-nodove.webp" alt=""><div class="bk"><div class="liner"></div><div class="shade" id="tshade"></div></div></div>
           </div>
-          <div class="dove" id="dove"><span class="glow"></span><img class="wb" src="dove-wing-b.webp" alt=""><img class="bd" src="dove-body.webp" alt=""><img class="wf" src="dove-wing-f.webp" alt=""></div>
+          <div class="dove" id="dove"><span class="glow"></span><div class="dv-sp"><img src="dove-flap.webp" alt=""></div></div>
           <span class="halo" id="halo"></span>
         </div>
       </div>
@@ -509,16 +507,16 @@ var startMusic=function(){};
     var fw=frame.offsetWidth, r=dove.getBoundingClientRect();
     Dust.burst(r.left+r.width/2, r.top+r.height/2, 34);
     tflap.classList.add('flown'); dove.classList.add('fly');
-    dove.animate([
+    dove.animate([   // flies the way it faces: up and to the left
       {transform:'translate(0,0) scale(1) rotate(0deg)', opacity:1, offset:0},
-      {transform:'translate(0,'+(-.03*fw)+'px) scale(1.3) rotate(-4deg)', opacity:1, offset:.12},
-      {transform:'translate('+(.08*fw)+'px,'+(-.2*fw)+'px) scale(1.75) rotate(-9deg)', opacity:1, offset:.34},
-      {transform:'translate('+(.3*fw)+'px,'+(-.5*fw)+'px) scale(1.5) rotate(-15deg)', opacity:1, offset:.62},
-      {transform:'translate('+(.62*fw)+'px,'+(-.85*fw)+'px) scale(1.1) rotate(-20deg)', opacity:1, offset:.84},
-      {transform:'translate('+(.8*fw)+'px,'+(-1.08*fw)+'px) scale(.9) rotate(-22deg)', opacity:0, offset:1}
+      {transform:'translate(0,'+(-.03*fw)+'px) scale(1.3) rotate(4deg)', opacity:1, offset:.12},
+      {transform:'translate('+(-.04*fw)+'px,'+(-.2*fw)+'px) scale(1.75) rotate(8deg)', opacity:1, offset:.34},
+      {transform:'translate('+(-.14*fw)+'px,'+(-.5*fw)+'px) scale(1.5) rotate(12deg)', opacity:1, offset:.62},
+      {transform:'translate('+(-.26*fw)+'px,'+(-.85*fw)+'px) scale(1.15) rotate(14deg)', opacity:1, offset:.84},
+      {transform:'translate('+(-.34*fw)+'px,'+(-1.1*fw)+'px) scale(.95) rotate(15deg)', opacity:0, offset:1}
     ],{duration:2700,easing:'cubic-bezier(.42,0,.58,1)',fill:'forwards'});
     var end=performance.now()+2500;
-    (function trail(n){ if(n>end) return; var b=dove.getBoundingClientRect(); Dust.trail(b.left+b.width*.55,b.top+b.height*.6); requestAnimationFrame(trail) })(performance.now());
+    (function trail(n){ if(n>end) return; var b=dove.getBoundingClientRect(); Dust.trail(b.left+b.width*.66,b.top+b.height*.82); requestAnimationFrame(trail) })(performance.now());
   }
 
   async function open(){
