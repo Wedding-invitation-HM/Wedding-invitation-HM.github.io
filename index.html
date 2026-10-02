@@ -15,6 +15,8 @@
 <style>[hidden]{display:none!important} :root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}</style>
 <title>Menna & Hazem</title>
 <meta name="description" content="Wedding invitation of Menna & Hazem — Friday 20 November 2026, El Masa Wedding Hall, Banha">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" as="image" href="env-surface.webp">
 <link rel="preload" as="image" href="env-flap-b.webp">
 <link rel="preload" as="image" href="env-flap-l.webp">
@@ -69,23 +71,23 @@ img{display:block; max-width:100%}
 .box{position:absolute; left:7.443%; top:26.996%; width:85.115%; height:48.78%}
 .card-box{z-index:1}
 .box > *{position:absolute}
-.pc,.pcb{inset:0; width:100%; height:100%; backface-visibility:hidden; -webkit-backface-visibility:hidden; will-change:transform}
-.pc-l,.pcb-l{transform-origin:.19% 50%; z-index:2}
-.pc-r,.pcb-r{transform-origin:99.81% 50%; z-index:2}
-.pc-b,.pcb-b{transform-origin:50% 99.77%; z-index:3}
-.pcb{background:radial-gradient(120% 90% at 50% 30%,#5b2a31,#3a171c 75%)}
-.pcb-l{clip-path:polygon(.19% .23%,49.95% 49.94%,.19% 99.77%)}
-.pcb-r{clip-path:polygon(99.81% .23%,49.95% 49.94%,99.81% 99.77%)}
-.pcb-b{clip-path:polygon(.19% 99.77%,99.81% 99.77%,49.95% 42.27%)}
-.l-flap,.l-flapback{left:7.601%; top:27.106%; width:84.877%; height:37.084%; transform-origin:49.95% 0%; backface-visibility:hidden; -webkit-backface-visibility:hidden; will-change:transform}
-.l-flap{z-index:5; filter:drop-shadow(0 5px 6px rgba(14,2,6,.5))}
-.l-flap img{position:absolute; inset:0; width:100%; height:100%}
-.l-flap .nodove{opacity:0}
-.l-flap.flown .withdove{opacity:0} .l-flap.flown .nodove{opacity:1}
-.l-flapback{z-index:4; background:#4b2328; clip-path:polygon(99.91% 0,0 0,0 8.67%,49.35% 91.78%,99.91% 6.73%)}
-.l-flapback .liner{position:absolute; inset:0; clip-path:polygon(95.6% 3.4%,4.3% 3.4%,4.3% 9.8%,49.35% 84.6%,95.6% 8.1%);
+.f3{position:absolute; inset:0; will-change:transform}
+.f3 > *{position:absolute; inset:0; width:100%; height:100%}
+.f3 .bk{opacity:0}
+.pL{transform-origin:.19% 50%; z-index:2} .pR{transform-origin:99.81% 50%; z-index:2} .pB{transform-origin:50% 99.77%; z-index:3}
+.pL .bk,.pR .bk,.pB .bk{background:radial-gradient(120% 90% at 50% 30%,#5b2a31,#3a171c 75%)}
+.pL .bk{clip-path:polygon(.19% .23%,49.95% 49.94%,.19% 99.77%)}
+.pR .bk{clip-path:polygon(99.81% .23%,49.95% 49.94%,99.81% 99.77%)}
+.pB .bk{clip-path:polygon(.19% 99.77%,99.81% 99.77%,49.95% 42.27%)}
+.tflap{inset:auto; left:7.601%; top:27.106%; width:84.877%; height:37.084%; transform-origin:50% 0%; z-index:5}
+.tflap .nodove{opacity:0} .tflap.flown .withdove{opacity:0} .tflap.flown .nodove{opacity:1}
+.tflap .bk{background:#4b2328; clip-path:polygon(0 0,99.91% 0,99.91% 8.67%,50.56% 91.78%,0 6.73%)}
+.tflap .liner{position:absolute; inset:0; clip-path:polygon(4.3% 3.4%,95.6% 3.4%,95.6% 9.6%,50.56% 84.6%,4.3% 8.4%);
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='120' viewBox='0 0 90 120'%3E%3Cg fill='none' stroke='%23e3c681' stroke-opacity='.55' stroke-width='1.1'%3E%3Cpath d='M45 2c10 10 10 26 0 34-10-8-10-24 0-34z'/%3E%3Cpath d='M45 36c10 10 10 26 0 34-10-8-10-24 0-34z'/%3E%3Cpath d='M45 70c10 10 10 26 0 34-10-8-10-24 0-34z'/%3E%3Cpath d='M23 19c8 2 14 10 14 20-9-1-16-9-14-20z'/%3E%3Cpath d='M67 19c-8 2-14 10-14 20 9-1 16-9 14-20z'/%3E%3Cpath d='M23 79c8 2 14 10 14 20-9-1-16-9-14-20z'/%3E%3Cpath d='M67 79c-8 2-14 10-14 20 9-1 16-9 14-20z'/%3E%3Ccircle cx='45' cy='19' r='2.4'/%3E%3Ccircle cx='45' cy='53' r='2.4'/%3E%3Ccircle cx='45' cy='87' r='2.4'/%3E%3C/g%3E%3C/svg%3E") 0 0/38px auto, linear-gradient(180deg,#6b1a29,#3e0d17)}
-.l-flapback .shade{position:absolute; inset:0; background:#12030a; opacity:.75}
+.tflap .shade{position:absolute; inset:0; background:#12030a; opacity:0}
+/* static contact shadow under the closed top flap (no filters on moving 3D layers) */
+.tshadow{position:absolute; left:7.601%; top:27.906%; width:84.877%; height:37.084%; z-index:4; filter:blur(5px); opacity:.55; pointer-events:none}
+.tshadow i{position:absolute; inset:0; background:#0d0205; clip-path:polygon(0 0,99.91% 0,99.91% 8.67%,50.56% 91.78%,0 6.73%)}
 .l-card{left:2.42%; top:2.95%; width:95.07%; height:93.98%; border-radius:2px;
   box-shadow:0 14px 34px -10px rgba(10,2,4,.55), 0 0 0 1px rgba(138,106,45,.25); will-change:transform}
 .card-in{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2%}
@@ -99,12 +101,14 @@ img{display:block; max-width:100%}
 /* the dove (real dove lifted from the seal; wings beat on their shoulders — rotation only, no squashing) */
 .dove{left:44.438%; top:51.275%; width:11.223%; height:9.243%; z-index:7; visibility:hidden; will-change:transform,opacity; pointer-events:none}
 .dove img{position:absolute; inset:0; width:100%; height:100%}
+.dove .glow{position:absolute; inset:-30%; border-radius:50%; background:radial-gradient(closest-side,rgba(255,236,190,.45),rgba(255,236,190,0)); opacity:0}
+.dove.fly .glow{opacity:1; transition:opacity .4s ease}
 .dove .wf{transform-origin:52.9% 58.8%} .dove .wb{transform-origin:40.9% 47.7%}
-.dove.fly{visibility:visible; filter:drop-shadow(0 0 6px rgba(255,238,200,.55)) drop-shadow(0 8px 10px rgba(20,4,8,.35))}
-.dove.fly .wf{animation:beatF .3s cubic-bezier(.45,0,.55,1) infinite alternate}
-.dove.fly .wb{animation:beatB .3s cubic-bezier(.45,0,.55,1) infinite alternate}
-@keyframes beatF{from{transform:rotate(-6deg)} to{transform:rotate(52deg)}}
-@keyframes beatB{from{transform:rotate(6deg)} to{transform:rotate(-46deg)}}
+.dove.fly{visibility:visible}
+.dove.fly .wf{animation:beatF .22s cubic-bezier(.45,0,.55,1) infinite alternate}
+.dove.fly .wb{animation:beatB .22s cubic-bezier(.45,0,.55,1) infinite alternate}
+@keyframes beatF{from{transform:rotate(-6deg)} to{transform:rotate(16deg)}}
+@keyframes beatB{from{transform:rotate(6deg)} to{transform:rotate(-14deg)}}
 
 /* name lockups: the monogram's tail runs between the names */
 .lockup{position:relative; display:flex; justify-content:center; width:100%; margin:0}
@@ -236,14 +240,14 @@ html.arm .fl.in{opacity:1; transition:opacity 1.8s ease .1s}
           </div></div></div>
           <div class="flaps" id="flaps">
             <div class="box">
-              <img class="pc pc-l" id="pcL" src="env-flap-l.webp" alt=""><div class="pcb pcb-l" id="pcbL"></div>
-              <img class="pc pc-r" id="pcR" src="env-flap-r.webp" alt=""><div class="pcb pcb-r" id="pcbR"></div>
-              <img class="pc pc-b" id="pcB" src="env-flap-b.webp" alt="A burgundy envelope sealed with a gold dove wax seal"><div class="pcb pcb-b" id="pcbB"></div>
+              <div class="f3 pL" id="pL"><img class="fr" src="env-flap-l.webp" alt=""><div class="bk"></div></div>
+              <div class="f3 pR" id="pR"><img class="fr" src="env-flap-r.webp" alt=""><div class="bk"></div></div>
+              <div class="f3 pB" id="pB"><img class="fr" src="env-flap-b.webp" alt="A burgundy envelope sealed with a gold dove wax seal"><div class="bk"></div></div>
             </div>
-            <div class="l-flapback" id="flapBack"><div class="liner"></div><div class="shade" id="flapShade"></div></div>
-            <div class="l-flap" id="flapFront"><img class="withdove" src="env-flap.webp" alt=""><img class="nodove" src="env-flap-nodove.webp" alt=""></div>
+            <div class="tshadow" id="tshadow"><i></i></div>
+            <div class="f3 tflap" id="tflap"><img class="fr withdove" src="env-flap.webp" alt=""><img class="fr nodove" src="env-flap-nodove.webp" alt=""><div class="bk"><div class="liner"></div><div class="shade" id="tshade"></div></div></div>
           </div>
-          <div class="dove" id="dove"><img class="wb" src="dove-wing-b.webp" alt=""><img class="bd" src="dove-body.webp" alt=""><img class="wf" src="dove-wing-f.webp" alt=""></div>
+          <div class="dove" id="dove"><span class="glow"></span><img class="wb" src="dove-wing-b.webp" alt=""><img class="bd" src="dove-body.webp" alt=""><img class="wf" src="dove-wing-f.webp" alt=""></div>
           <span class="halo" id="halo"></span>
         </div>
       </div>
@@ -368,7 +372,7 @@ var Dust=(function(){
   function size(){ D=Math.min(devicePixelRatio||1,2); W=innerWidth; H=innerHeight; cv.width=W*D; cv.height=H*D }
   function make(x,y,burst){
     var z=Math.random(), p={x:x==null?Math.random()*W:x, y:y==null?Math.random()*H:y, z:z,
-      s:.7+z*2.1, vy:-(5+z*16), vx:(Math.random()-.5)*5, sw:Math.random()*6.28, sws:.4+Math.random()*.8,
+      s:.7+z*2.1, vy:-(16+z*42), vx:(Math.random()-.5)*18, sw:Math.random()*6.28, sws:.4+Math.random()*.8,
       tw:Math.random()*6.28, tws:1.5+Math.random()*3, life:burst?1.4+Math.random()*1.4:Infinity, age:0, star:z>.86};
     if(burst){ var ang=Math.random()*6.28, sp=30+Math.random()*90; p.vx=Math.cos(ang)*sp; p.vy=Math.sin(ang)*sp-30; p.s*=1.1 }
     return p;
@@ -381,7 +385,7 @@ var Dust=(function(){
     for(var i=P.length-1;i>=0;i--){
       var p=P[i]; p.age+=dt;
       if(p.life!==Infinity){ p.vx*=.97; p.vy=p.vy*.97-6*dt; if(p.age>p.life){ P.splice(i,1); continue } }
-      p.sw+=p.sws*dt; p.x+=(p.vx+Math.sin(p.sw)*6*(.4+p.z))*dt; p.y+=p.vy*dt;
+      p.sw+=p.sws*dt; p.x+=(p.vx+Math.sin(p.sw)*16*(.4+p.z))*dt; p.y+=(p.vy+Math.cos(p.sw*.7)*5)*dt;
       if(p.life===Infinity){ if(p.y<-10){ p.y=H+10; p.x=Math.random()*W } if(p.x<-10) p.x=W+10; if(p.x>W+10) p.x=-10 }
       p.tw+=p.tws*dt;
       var tw=.35+.65*Math.pow(.5+.5*Math.sin(p.tw),2), fade=p.life===Infinity?1:Math.max(0,1-p.age/p.life);
@@ -425,22 +429,21 @@ var startMusic=function(){};
 (function(){
   var $=function(id){return document.getElementById(id)};
   var cover=$('cover'), frame=$('frame'), tilt=$('tilt'), grp=$('grp'), shadow=$('shadow'), surface=$('surface'),
-      title=$('coverTitle'), hint=$('coverHint'), flapF=$('flapFront'), flapB=$('flapBack'), shade=$('flapShade'),
-      flaps=$('flaps'), pcL=$('pcL'), pcR=$('pcR'), pcB=$('pcB'), pcbL=$('pcbL'), pcbR=$('pcbR'), pcbB=$('pcbB'),
-      card=$('card'), cardIn=$('cardIn'), dove=$('dove'), exp=$('expander'), invite=$('invite'), music=$('music');
-  var SIGN={top:1, bottom:-1, left:-1};   // rotation directions so each flap lifts toward the viewer
-  function T(p,ax,deg,extra){ return 'perspective('+p+'px) rotate'+ax+'('+deg+'deg)'+(extra||'') }
-  function rots(p,k){ // k: 0 closed -> 1 open, per flap
-    return {
-      tf:T(p,'X',SIGN.top*180*k.t), tb:T(p,'X',SIGN.top*180*k.t,' rotateY(180deg)'),
-      b:T(p,'X',SIGN.bottom*180*k.b), bb:T(p,'X',SIGN.bottom*180*k.b,' rotateY(180deg)'),
-      l:T(p,'Y',SIGN.left*180*k.s), lb:T(p,'Y',SIGN.left*180*k.s,' rotateX(180deg)'),
-      r:T(p,'Y',-SIGN.left*180*k.s), rb:T(p,'Y',-SIGN.left*180*k.s,' rotateX(180deg)') } }
+      title=$('coverTitle'), hint=$('coverHint'), flaps=$('flaps'), tflap=$('tflap'), tshade=$('tshade'), tshadow=$('tshadow'),
+      pL=$('pL'), pR=$('pR'), pB=$('pB'), card=$('card'), cardIn=$('cardIn'), dove=$('dove'), exp=$('expander'), invite=$('invite'), music=$('music');
   var canAnimate=!!Element.prototype.animate, opened=false, ready=false;
   function persp(){ return Math.round(frame.offsetHeight*2.4) }
-  function rest(){ var p=persp(), r=rots(p,{t:0,b:0,s:0});
-    flapF.style.transform=r.tf; flapB.style.transform=r.tb; pcB.style.transform=r.b; pcbB.style.transform=r.bb;
-    pcL.style.transform=r.l; pcbL.style.transform=r.lb; pcR.style.transform=r.r; pcbR.style.transform=r.rb }
+  // Each flap: one element rotated about its hinge; at 90° the outside face swaps for the inside face.
+  // No backface-visibility and no filters on moving layers, so Safari and Chrome render it identically.
+  function setFlap(el,axis,deg,p){
+    var a=Math.abs(deg);
+    el.style.transform = a<.01 ? 'none' : 'perspective('+p+'px) rotate'+axis+'('+deg.toFixed(2)+'deg)';
+    var back=a>90, fr=el.querySelectorAll('.fr'), bk=el.querySelector('.bk');
+    for(var i=0;i<fr.length;i++) fr[i].style.visibility=back?'hidden':'visible';
+    bk.style.opacity=back?1:0;
+  }
+  function rest(){ var p=persp(); setFlap(tflap,'X',0,p); setFlap(pB,'X',0,p); setFlap(pL,'Y',0,p); setFlap(pR,'Y',0,p) }
+  var easeIO=function(x){ x=Math.max(0,Math.min(1,x)); return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2 };
   rest(); addEventListener('resize',function(){ if(!opened) rest() });
   function wait(ms){ return new Promise(function(r){ setTimeout(r,ms) }) }
   function anim(el,k,o){ return el.animate(k,Object.assign({fill:'forwards'},o)) }
@@ -505,7 +508,7 @@ var startMusic=function(){};
   function flyDove(){
     var fw=frame.offsetWidth, r=dove.getBoundingClientRect();
     Dust.burst(r.left+r.width/2, r.top+r.height/2, 34);
-    flapF.classList.add('flown'); dove.classList.add('fly');
+    tflap.classList.add('flown'); dove.classList.add('fly');
     dove.animate([
       {transform:'translate(0,0) scale(1) rotate(0deg)', opacity:1, offset:0},
       {transform:'translate(0,'+(-.03*fw)+'px) scale(1.3) rotate(-4deg)', opacity:1, offset:.12},
@@ -529,19 +532,25 @@ var startMusic=function(){};
     await wait(200);
     flyDove();
     await settled; await wait(380);
-    var p=persp(), ez='cubic-bezier(.62,.02,.3,1)', c0=rots(p,{t:0,b:0,s:0}), c1=rots(p,{t:1,b:1,s:1});
-    function flip(el,k0,k1,d,delay){ return anim(el,[{transform:k0},{transform:k1}],{duration:d,delay:delay||0,easing:ez}) }
-    // 1) top flap lifts (seal goes with it), liner shading fades as it turns
-    flip(flapF,c0.tf,c1.tf,1050); flip(flapB,c0.tb,c1.tb,1050);
-    anim(shade,[{opacity:.75},{opacity:.75,offset:.5},{opacity:0}],{duration:1050});
-    // 2) bottom flap folds down, 3) side flaps swing out — camera eases back so the unfolded envelope fits
-    flip(pcB,c0.b,c1.b,950,620); flip(pcbB,c0.bb,c1.bb,950,620);
-    flip(pcL,c0.l,c1.l,950,1000); flip(pcbL,c0.lb,c1.lb,950,1000);
-    flip(pcR,c0.r,c1.r,950,1080); flip(pcbR,c0.rb,c1.rb,950,1080);
-    anim(tilt,[{transform:'scale(1)'},{transform:'scale(.8)'}],{duration:1500,delay:700,easing:'cubic-bezier(.45,0,.2,1)'});
-    anim(shadow,[{opacity:1},{opacity:.35}],{duration:1200,delay:700});
-    await wait(2250+450);                       // hold: the card with the monogram sits open in the envelope
+    var p=persp();
+    // 1) top flap lifts (empty wax seal goes with it)  2) bottom folds down  3) sides swing out, camera eases back
+    await new Promise(function(res){
+      var s=performance.now(), done=false;
+      function frameAt(tm){
+        var kt=easeIO(tm/1050), kb=easeIO((tm-620)/950), kl=easeIO((tm-1000)/950), kr=easeIO((tm-1080)/950), at=180*kt;
+        setFlap(tflap,'X', 180*kt,p); setFlap(pB,'X',-180*kb,p); setFlap(pL,'Y',-180*kl,p); setFlap(pR,'Y',180*kr,p);
+        tshade.style.opacity = at>90 ? (.75*(1-(at-90)/90)).toFixed(3) : '0';
+        tshadow.style.opacity = (.55*Math.max(0,1-tm/260)).toFixed(3);
+        tilt.style.transform = 'scale('+(1-.2*easeIO((tm-700)/1500)).toFixed(4)+')';
+        shadow.style.opacity = (1-.65*Math.min(1,Math.max(0,(tm-700)/1200))).toFixed(3);
+      }
+      function end(){ if(done) return; done=true; frameAt(2400); res() }
+      (function step(){ if(done) return; var tm=performance.now()-s; frameAt(tm); if(tm<2300) requestAnimationFrame(step); else end() })();
+      setTimeout(end,2600);
+    });
+    await wait(550);                            // hold: the card with the monogram sits open in the envelope
     // 4) the envelope slides away, the card comes forward to the centre
+    card.parentNode.style.zIndex=3;               // the card stays in front while the envelope slides away
     var r=card.getBoundingClientRect(), D=innerHeight*.9, dy=innerHeight/2-(r.top+r.height/2), DUR=1050, ez2='cubic-bezier(.55,0,.22,1)';
     anim(flaps,[{transform:'translateY(0px)',opacity:1},{transform:'translateY('+D+'px)',opacity:0}],{duration:DUR,easing:'cubic-bezier(.5,0,.75,.4)'});
     anim(shadow,[{opacity:.35},{opacity:0}],{duration:DUR*.6});
