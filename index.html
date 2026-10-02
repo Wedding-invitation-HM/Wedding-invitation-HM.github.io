@@ -25,7 +25,7 @@
 <link rel="preload" as="image" href="env-flap.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Amiri:wght@400;700&family=Cinzel:wght@400;500;600&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Imperial+Script&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Amiri:wght@400;700&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&display=swap">
 <style>
 /* Hazem & Menna — a 3D envelope that opens (the dove flies out of the seal) into an ivory invitation.
    Committed look: burgundy surface · ivory paper · antique gold · wine-red ink. */
@@ -37,8 +37,8 @@
   --ar:"Noto Nastaliq Urdu","Amiri","Times New Roman",serif;
   --ar-quran:"Amiri","Times New Roman",serif;
   --caps:"Cinzel","Times New Roman",serif;
-  --it:"Bodoni Moda","Didot","Times New Roman",serif;
-  --script:"Imperial Script","Snell Roundhand",cursive;
+  --it:"Cormorant Garamond","Cormorant","Garamond","Times New Roman",serif;
+  --script:"Great Vibes","Snell Roundhand",cursive;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -124,9 +124,9 @@ img{display:block; max-width:100%; -webkit-touch-callout:none; -webkit-user-drag
 .lockup{position:relative; display:flex; justify-content:center; width:100%; margin:0}
 .mono-wrap{position:relative; display:block; height:var(--mh); width:calc(var(--mh) / 2.06875)}
 .mono-wrap img{width:100%; height:100%}
-.ln{position:absolute; top:calc(var(--mh) * .735); font-family:var(--script); font-weight:400; line-height:1; white-space:nowrap; font-size:var(--nf)}
-.ln-l{right:calc(50% + var(--mh) * .036 + var(--gap,10px))}
-.ln-r{left:calc(50% + var(--mh) * .036 + var(--gap,10px))}
+.ln{position:absolute; top:calc(var(--mh) * .705); font-family:var(--script); font-weight:400; line-height:1; white-space:nowrap; font-size:var(--nf)}
+.ln-l{right:calc(50% + var(--mh) * .036 + var(--gap,10px) + .1em)}
+.ln-r{left:calc(50% + var(--mh) * .036 + var(--gap,10px) + .1em)}
 .cover-lock{--mh:calc(var(--fw) * .27); --nf:calc(var(--fw) * .118); --gap:6px}
 .cover-lock .ln{color:#f1dfb8; text-shadow:0 2px 16px rgba(0,0,0,.4)}
 .card-lock{--mh:calc(var(--fh) * .4584 * .6); --nf:calc(var(--fw) * .078); --gap:5px}
@@ -178,19 +178,19 @@ img{display:block; max-width:100%; -webkit-touch-callout:none; -webkit-user-drag
   background:linear-gradient(105deg,transparent 38%,rgba(255,234,184,.95) 50%,transparent 62%) 0 0/300% 100% no-repeat;
   background-position:120% 0; animation:glint 7s ease-in-out 4s infinite}
 @keyframes glint{0%{background-position:120% 0} 28%,100%{background-position:-20% 0}}
-.en-line{font-family:var(--it); font-style:italic; color:var(--ink-soft); font-size:clamp(1.1rem,4.6vw,1.36rem); margin:clamp(20px,5vw,28px) 0 0}
+.en-line{font-family:var(--it); font-style:italic; font-weight:500; color:var(--ink-soft); font-size:clamp(1.24rem,5.2vw,1.52rem); margin:clamp(20px,5vw,28px) 0 0}
 .when{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:clamp(10px,4vw,24px); width:100%; max-width:330px; padding:14px 0; border-top:1px solid rgba(176,141,74,.55); border-bottom:1px solid rgba(176,141,74,.55)}
 .when .side{min-width:0; display:flex; flex-direction:column; gap:.15em; font-family:var(--caps); text-transform:uppercase; letter-spacing:.14em; font-size:clamp(.68rem,2.9vw,.8rem); font-weight:500; color:var(--ink)}
 .when .side .a{font-family:var(--ar); text-transform:none; letter-spacing:0; font-size:1.25em; font-weight:400; color:var(--ink-soft); line-height:2}
-.when .big{font-family:var(--it); font-weight:400; color:var(--wine); font-size:clamp(3rem,13.5vw,3.9rem); line-height:.95; padding:0 .3em; border-left:1px solid rgba(176,141,74,.55); border-right:1px solid rgba(176,141,74,.55); font-variant-numeric:lining-nums}
+.when .big{font-family:var(--it); font-weight:400; color:var(--wine); font-size:clamp(3.3rem,15vw,4.3rem); line-height:.95; padding:0 .3em; border-left:1px solid rgba(176,141,74,.55); border-right:1px solid rgba(176,141,74,.55); font-variant-numeric:lining-nums}
 .month{font-family:var(--caps); text-transform:uppercase; letter-spacing:.36em; padding-left:.36em; font-size:clamp(.72rem,3vw,.86rem); font-weight:500; color:var(--gold-deep); margin-top:12px}
 .ar-date{font-family:var(--ar); direction:rtl; color:var(--ink-soft); font-size:clamp(.95rem,4vw,1.08rem); line-height:2.2; margin-top:2px}
 .venue{margin-top:clamp(22px,6vw,32px)}
 .lbl{font-family:var(--caps); text-transform:uppercase; letter-spacing:.32em; padding-left:.32em; font-size:clamp(.6rem,2.5vw,.7rem); color:var(--gold-deep); font-weight:500}
 .lbl .ar{font-family:var(--ar); letter-spacing:0; font-size:1.3em; line-height:1}
-.venue .v-en{font-family:var(--it); font-size:clamp(1.3rem,5.6vw,1.6rem); color:var(--ink); margin-top:.35em}
+.venue .v-en{font-family:var(--it); font-weight:500; font-size:clamp(1.45rem,6.2vw,1.8rem); color:var(--ink); margin-top:.35em}
 .venue .v-ar{font-family:var(--ar); font-weight:600; font-size:clamp(1.25rem,5.4vw,1.5rem); color:var(--wine); direction:rtl; line-height:2.2}
-.venue .v-city{font-family:var(--it); font-style:italic; color:var(--ink-soft); font-size:clamp(.96rem,4vw,1.08rem)}
+.venue .v-city{font-family:var(--it); font-style:italic; font-weight:500; color:var(--ink-soft); font-size:clamp(1.06rem,4.4vw,1.2rem)}
 .map{display:block; width:100%; max-width:360px; margin-top:20px; text-decoration:none; color:inherit; border:1px solid rgba(176,141,74,.6); padding:6px; background:rgba(255,255,255,.25); transition:transform .3s ease, box-shadow .3s ease}
 .map:hover{transform:translateY(-2px); box-shadow:0 14px 28px -16px rgba(60,20,20,.5)}
 .map:focus-visible{outline:2px solid var(--wine); outline-offset:3px}
@@ -202,7 +202,7 @@ img{display:block; max-width:100%; -webkit-touch-callout:none; -webkit-user-drag
 .map-cta{display:flex; align-items:center; justify-content:center; gap:.6em; flex-wrap:wrap; padding:.8em .6em .55em; font-family:var(--caps); color:var(--wine); font-weight:500; letter-spacing:.12em; font-size:clamp(.78rem,3.3vw,.88rem)}
 .map-cta .ar{font-family:var(--ar); font-weight:500; letter-spacing:0; font-size:1.15em; line-height:2}
 .map-cta .dot{color:var(--gold)}
-.sign{font-family:var(--it); font-style:italic; color:var(--ink-soft); font-size:clamp(1rem,4.2vw,1.18rem); margin-top:14px}
+.sign{font-family:var(--it); font-style:italic; font-weight:500; color:var(--ink-soft); font-size:clamp(1.12rem,4.7vw,1.32rem); margin-top:14px}
 
 /* reveal choreography (armed by script only) */
 html.arm .rv{opacity:0; transform:perspective(900px) translateY(22px) rotateX(18deg); transform-origin:50% 0%}
@@ -262,20 +262,35 @@ html.arm .fl-br.in.breathe{animation-name:breatheB; animation-duration:10s}
 /* the gold frame line fades in with the page */
 html.arm .frame-line{opacity:0} html.arm .paper.lit .frame-line{opacity:1; transition:opacity 2.4s ease .4s}
 
-/* scroll cue: a gold bead gliding down a hairline, nudging guests to scroll through the invitation */
-.scroll-cue{position:fixed; z-index:59; left:50%; bottom:calc(22px + env(safe-area-inset-bottom,0px)); transform:translate(-50%,14px); display:flex; flex-direction:column; align-items:center; gap:5px;
-  padding:10px 18px 7px; border:1px solid rgba(176,141,74,.5); border-radius:999px; background:rgba(244,237,224,.95); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
-  box-shadow:0 12px 28px -14px rgba(60,20,20,.45); color:var(--gold-deep); cursor:pointer; opacity:0; pointer-events:none; transition:opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1); -webkit-tap-highlight-color:transparent}
+/* scroll cue: the page melts into ivory at the bottom; gold words, a flowing hairline with a bead of light, cascading chevrons */
+.scroll-cue{position:fixed; z-index:59; left:50%; bottom:calc(14px + env(safe-area-inset-bottom,0px)); transform:translate(-50%,10px); display:flex; flex-direction:column; align-items:center; gap:3px;
+  padding:6px 30px 2px; border:0; background:none; color:var(--gold-deep); cursor:pointer; opacity:0; pointer-events:none;
+  transition:opacity 1s ease, transform 1.2s cubic-bezier(.2,.7,.2,1); -webkit-tap-highlight-color:transparent}
+.scroll-cue::before{content:""; position:absolute; z-index:-1; left:50%; bottom:calc(-14px - env(safe-area-inset-bottom,0px)); width:min(100vw,600px); height:calc(100% + 96px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%);
+  background:linear-gradient(180deg,rgba(242,234,219,0) 0%,rgba(242,234,219,.78) 42%,rgba(242,234,219,.97) 78%); pointer-events:none}
 .scroll-cue.show{opacity:1; transform:translate(-50%,0); pointer-events:auto}
-.scroll-cue .sc-en{font-family:var(--caps); text-transform:uppercase; letter-spacing:.38em; padding-left:.38em; font-size:.62rem; font-weight:500}
-.scroll-cue .sc-ar{font-family:var(--ar); font-size:.86rem; line-height:1.6; color:var(--ink-soft)}
-.scroll-cue .sc-track{position:relative; width:1px; height:30px; background:linear-gradient(180deg,rgba(176,141,74,0),rgba(176,141,74,.8),rgba(176,141,74,0))}
-.scroll-cue .sc-track i{position:absolute; left:50%; top:0; width:5px; height:5px; margin-left:-2.5px; border-radius:50%; background:var(--gold); box-shadow:0 0 8px 2px rgba(227,198,129,.8); animation:bead 1.9s cubic-bezier(.45,0,.3,1) infinite}
-@keyframes bead{0%{transform:translateY(0); opacity:0} 18%{opacity:1} 75%{opacity:1} 100%{transform:translateY(26px); opacity:0}}
+.scroll-cue > *{opacity:0; transform:translateY(6px); transition:opacity 1s ease, transform 1.2s cubic-bezier(.2,.7,.2,1), letter-spacing 1.6s cubic-bezier(.2,.7,.2,1)}
+.scroll-cue.show > *{opacity:1; transform:none}
+.scroll-cue .sc-ar{font-family:var(--ar); font-size:.92rem; line-height:1.7; color:var(--ink-soft)}
+.scroll-cue .sc-en{font-family:var(--caps); text-transform:uppercase; font-size:.6rem; font-weight:600; letter-spacing:.9em; padding-left:.42em; transition-delay:.15s;
+  background:linear-gradient(90deg,var(--gold-deep) 0%,var(--gold-deep) 38%,#f6e3a8 50%,var(--gold-deep) 62%,var(--gold-deep) 100%) 0 0/260% 100%; -webkit-background-clip:text; background-clip:text; color:transparent;
+  animation:scShimmer 3.6s ease-in-out 1.4s infinite}
+.scroll-cue.show .sc-en{letter-spacing:.42em}
+.scroll-cue .sc-line{position:relative; width:1px; height:30px; margin-top:4px; overflow:hidden; background:rgba(176,141,74,.18); transform-origin:50% 0; transition-delay:.35s}
+.scroll-cue:not(.show) .sc-line{transform:scaleY(0)}
+.scroll-cue .sc-line i{position:absolute; left:0; top:0; width:1px; height:100%; background:linear-gradient(180deg,rgba(176,141,74,0),var(--gold) 70%,rgba(176,141,74,0)); animation:scFlow 2.4s cubic-bezier(.5,0,.4,1) infinite}
+.scroll-cue .sc-line b{position:absolute; left:50%; top:0; width:4px; height:4px; margin-left:-2px; border-radius:50%; background:#fff3cf; box-shadow:0 0 6px 2px rgba(227,198,129,.95); animation:scBead 2.4s cubic-bezier(.5,0,.4,1) infinite}
+.scroll-cue .sc-chev{position:relative; width:14px; height:16px; transition-delay:.55s}
+.scroll-cue .sc-chev i{position:absolute; left:50%; top:0; width:8px; height:8px; margin-left:-4px; border-right:1px solid var(--gold); border-bottom:1px solid var(--gold); transform:rotate(45deg); opacity:0; animation:scChev 2.4s ease-in-out infinite}
+.scroll-cue .sc-chev i + i{top:5px; animation-delay:.22s}
+@keyframes scFlow{0%{transform:translateY(-100%)} 100%{transform:translateY(100%)}}
+@keyframes scBead{0%{transform:translateY(-4px); opacity:0} 20%{opacity:1} 80%{opacity:1} 100%{transform:translateY(30px); opacity:0}}
+@keyframes scChev{0%,35%{opacity:0; transform:translateY(-3px) rotate(45deg)} 60%{opacity:1} 100%{opacity:0; transform:translateY(5px) rotate(45deg)}}
+@keyframes scShimmer{0%{background-position:100% 0} 55%,100%{background-position:0 0}}
 
 @media (prefers-reduced-motion:reduce){
   html.arm .rv,html.arm .rv *,html.arm .rv-lines .l,html.arm .rv-words .w,html.arm .rv-rule *,html.arm .rv-when,html.arm .rv-when *,html.arm .rv-stag > *,html.arm .fl,html.arm .map .route,html.arm .map .pin,html.arm .rv-write,html.arm .rv-write svg,html.arm .inv-lock *{transition:none!important; animation:none!important}
-  .scroll-cue .sc-track i{animation:none; top:14px}
+  .scroll-cue *{animation:none!important}
 }
 
 .music{position:fixed; z-index:59; right:16px; bottom:calc(16px + env(safe-area-inset-bottom,0px)); width:46px; height:46px; border-radius:50%; border:1px solid rgba(176,141,74,.7); background:rgba(242,234,219,.92); color:var(--wine); display:none; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 8px 22px -8px rgba(30,6,10,.5); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px)}
@@ -412,7 +427,7 @@ html.arm .frame-line{opacity:0} html.arm .paper.lit .frame-line{opacity:1; trans
   <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="m23 9-6 6"/><path d="m17 9 6 6"/></svg>
 </button>
 <button class="scroll-cue" id="scrollCue" type="button" aria-label="Scroll down — مرّر للأسفل" tabindex="-1">
-  <span class="sc-en">Scroll</span><span class="sc-track"><i></i></span><span class="sc-ar">مرّر للأسفل</span>
+  <span class="sc-ar">مرّر للأسفل</span><span class="sc-en">Scroll</span><span class="sc-line"><i></i><b></b></span><span class="sc-chev"><i></i><i></i></span>
 </button>
 
 <script>
