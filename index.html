@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#2b1517">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
 <meta property="og:title" content="Menna &amp; Hazem · دعوة زفاف">
 <meta property="og:description" content="Friday 20 November 2026 · 7:00 PM · El Masa Wedding Hall, Banha">
 <meta property="og:type" content="website">
@@ -47,7 +48,8 @@ html.locked,body.locked{overflow:hidden; overscroll-behavior:none}
    scroll 'runway': extra backdrop above the first screen, scrolled out of view on load */
 :root{--runway:0px}
 @media (max-width:760px){ :root{--runway:62px} body.inv #invite::before{content:""; display:block; height:var(--runway); background:var(--paper)} }
-img{display:block; max-width:100%}
+img{display:block; max-width:100%; -webkit-touch-callout:none; -webkit-user-drag:none; user-select:none}
+#cover,#cover *{-webkit-touch-callout:none}
 .paper-bg{
   background-color:var(--paper);
   background-image:
@@ -366,58 +368,83 @@ baseColour('#341a1c');
 scrollTo(0,runway());
 var REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ---------- gold dust (depth-layered glitter, pre-rendered sprites) ---------- */
+/* ---------- gold dust: three depths of glitter, soft foreground glints, light-catching star flashes ---------- */
 var Dust=(function(){
-  var cv=document.getElementById('dust'), ctx=cv.getContext('2d'), W=0,H=0,D=1, P=[], mode='night', sprites={}, last=0;
-  function sprite(rgb,core){
-    var s=document.createElement('canvas'), n=64; s.width=s.height=n; var c=s.getContext('2d');
-    var g=c.createRadialGradient(n/2,n/2,0,n/2,n/2,n/2);
-    g.addColorStop(0,'rgba(255,255,255,'+core+')'); g.addColorStop(.12,'rgba('+rgb+',.95)'); g.addColorStop(.35,'rgba('+rgb+',.28)'); g.addColorStop(1,'rgba('+rgb+',0)');
-    c.fillStyle=g; c.fillRect(0,0,n,n); return s;
-  }
-  function star(rgb){
-    var s=document.createElement('canvas'), n=64; s.width=s.height=n; var c=s.getContext('2d'); c.translate(n/2,n/2);
-    [[0,1],[Math.PI/2,1],[Math.PI/4,.45],[-Math.PI/4,.45]].forEach(function(r){
-      c.save(); c.rotate(r[0]); var g=c.createLinearGradient(-n/2,0,n/2,0);
-      g.addColorStop(0,'rgba('+rgb+',0)'); g.addColorStop(.5,'rgba(255,250,235,'+r[1]+')'); g.addColorStop(1,'rgba('+rgb+',0)');
-      c.fillStyle=g; c.fillRect(-n/2,-.8,n,1.6); c.restore();
-    }); return s;
-  }
-  sprites.night={dot:sprite('255,214,140',.9), star:star('255,214,140'), comp:'lighter', a:1};
-  sprites.paper={dot:sprite('176,132,52',.55), star:star('190,146,62'), comp:'source-over', a:.62};
-  var ox=0, oy=0;
+  var cv=document.getElementById('dust'), ctx=cv.getContext('2d'), W=0,H=0,D=1, ox=0,oy=0, P=[], mode='night', S=null, last=0,
+      tx=0,ty=0, px=0,py=0, lastScroll=0, glintAcc=0, slow=0, quality=1;
+  function canvas(n){ var s=document.createElement('canvas'); s.width=s.height=n; return s }
+  function dot(rgb){                       // glowing grain with a hot core
+    var s=canvas(64), c=s.getContext('2d'), g=c.createRadialGradient(32,32,0,32,32,32);
+    g.addColorStop(0,'rgba(255,252,240,1)'); g.addColorStop(.12,'rgba('+rgb+',.95)'); g.addColorStop(.34,'rgba('+rgb+',.32)'); g.addColorStop(1,'rgba('+rgb+',0)');
+    c.fillStyle=g; c.fillRect(0,0,64,64); return s }
+  function bokeh(rgb){                     // out-of-focus disc: even body, faint bright rim, soft edge
+    var s=canvas(128), c=s.getContext('2d'), g=c.createRadialGradient(64,64,0,64,64,64);
+    g.addColorStop(0,'rgba('+rgb+',.42)'); g.addColorStop(.7,'rgba('+rgb+',.46)'); g.addColorStop(.86,'rgba('+rgb+',.52)'); g.addColorStop(1,'rgba('+rgb+',0)');
+    c.fillStyle=g; c.fillRect(0,0,128,128); return s }
+  function star(rgb){                      // four long rays, four short ones, bright centre
+    var n=128, s=canvas(n), c=s.getContext('2d'); c.translate(n/2,n/2);
+    [[0,1,1],[Math.PI/2,1,1],[Math.PI/4,.5,.55],[-Math.PI/4,.5,.55]].forEach(function(r){
+      c.save(); c.rotate(r[0]); var L=n/2*r[2], g=c.createLinearGradient(-L,0,L,0);
+      g.addColorStop(0,'rgba('+rgb+',0)'); g.addColorStop(.5,'rgba(255,251,238,'+r[1]+')'); g.addColorStop(1,'rgba('+rgb+',0)');
+      c.fillStyle=g; c.beginPath(); c.moveTo(-L,0); c.lineTo(0,-1.6); c.lineTo(L,0); c.lineTo(0,1.6); c.closePath(); c.fill(); c.restore() });
+    var g=c.createRadialGradient(0,0,0,0,0,14); g.addColorStop(0,'rgba(255,253,245,1)'); g.addColorStop(.35,'rgba('+rgb+',.6)'); g.addColorStop(1,'rgba('+rgb+',0)');
+    c.fillStyle=g; c.fillRect(-14,-14,28,28); return s }
+  function palette(tints,o){ o.dot=tints.map(dot); o.star=tints.map(star); o.bokeh=tints.map(bokeh); o.n=tints.length; return o }
+  var PAL={
+    night:palette(['255,212,138','255,230,178','236,186,112','255,243,212'],{comp:'lighter', a:1, bok:6, glint:4.2, dens:5200, min:52, max:130, rise:1}),
+    paper:palette(['176,132,52','198,156,74','150,108,40'],{comp:'source-over', a:.7, bok:0, glint:1.4, dens:13000, min:24, max:54, rise:.55})
+  };
   function size(){ D=Math.min(devicePixelRatio||1,2); var b=cv.getBoundingClientRect(); ox=b.left; oy=b.top; W=b.width||innerWidth; H=b.height||innerHeight; cv.width=Math.round(W*D); cv.height=Math.round(H*D) }
-  function make(x,y,burst){
-    var z=Math.random(), p={x:x==null?Math.random()*W:x, y:y==null?Math.random()*H:y, z:z,
-      s:.7+z*2.1, vy:-(16+z*42), vx:(Math.random()-.5)*18, sw:Math.random()*6.28, sws:.4+Math.random()*.8,
-      tw:Math.random()*6.28, tws:1.5+Math.random()*3, life:burst?1.4+Math.random()*1.4:Infinity, age:0, star:z>.86};
-    if(burst){ var ang=Math.random()*6.28, sp=30+Math.random()*90; p.vx=Math.cos(ang)*sp; p.vy=Math.sin(ang)*sp-30; p.s*=1.1 }
-    return p;
+  function make(kind,x,y){
+    var z=Math.random(), p={kind:kind, x:x==null?Math.random()*W:x, y:y==null?Math.random()*H:y, z:z, c:(Math.random()*S.n)|0,
+      sw:Math.random()*6.28, sws:.35+Math.random()*.7, tw:Math.random()*6.28, tws:1.2+Math.random()*3.4, life:Infinity, age:0, flash:-1};
+    if(kind==='d'){ p.s=.55+z*z*2.3; p.vy=-(10+z*34)*S.rise; p.vx=(Math.random()-.5)*14 }
+    else { p.s=14+Math.random()*22; p.vy=-(5+Math.random()*8)*S.rise; p.vx=(Math.random()-.5)*8; p.z=1.4; p.ba=.05+Math.random()*.08 }
+    return p }
+  function seed(){
+    var n=Math.round(Math.max(S.min,Math.min(S.max,W*H/S.dens))*quality);
+    P=P.filter(function(p){ return p.life!==Infinity });
+    for(var i=0;i<n;i++) P.push(make('d'));
+    for(var j=0;j<Math.round(S.bok*quality);j++) P.push(make('b'));
   }
-  function seed(){ var n=Math.round(Math.max(26,Math.min(64,W*H/11000))*(mode==='paper'?.6:1)); P=P.filter(function(p){return p.life!==Infinity}); for(var i=0;i<n;i++) P.push(make()) }
   function frame(t){
     var dt=Math.min(.05,(t-last)/1000||0); last=t;
-    ctx.setTransform(D,0,0,D,0,0); ctx.clearRect(0,0,W,H);
-    var S=sprites[mode]; ctx.globalCompositeOperation=S.comp;
+    // adaptive quality: if the phone struggles for ~2s, halve the glitter once
+    if(dt>.026) slow+=dt; else slow=Math.max(0,slow-dt*.5);
+    if(slow>2&&quality>.5){ quality=.5; seed() }
+    px+=(tx-px)*.05; py+=(ty-py)*.05;
+    if(mode==='paper'){ var sy=scrollY, dy=sy-lastScroll; lastScroll=sy; if(dy) for(var k=0;k<P.length;k++) P[k].y-=dy*(.04+.22*Math.min(1,P[k].z)) }
+    glintAcc+=dt*S.glint;
+    while(glintAcc>1){ glintAcc-=1; var q=P[(Math.random()*P.length)|0]; if(q&&q.kind==='d'&&q.flash<0&&q.z>.35){ q.flash=0; q.fdur=.5+Math.random()*.55; q.frot=(Math.random()-.5)*.6 } }
+    ctx.setTransform(D,0,0,D,0,0); ctx.clearRect(0,0,W,H); ctx.globalCompositeOperation=S.comp;
     for(var i=P.length-1;i>=0;i--){
       var p=P[i]; p.age+=dt;
       if(p.life!==Infinity){ p.vx*=.97; p.vy=p.vy*.97-6*dt; if(p.age>p.life){ P.splice(i,1); continue } }
-      p.sw+=p.sws*dt; p.x+=(p.vx+Math.sin(p.sw)*16*(.4+p.z))*dt; p.y+=(p.vy+Math.cos(p.sw*.7)*5)*dt;
-      if(p.life===Infinity){ if(p.y<-10){ p.y=H+10; p.x=Math.random()*W } if(p.x<-10) p.x=W+10; if(p.x>W+10) p.x=-10 }
+      p.sw+=p.sws*dt; p.x+=(p.vx+Math.sin(p.sw)*14*(.4+p.z))*dt; p.y+=(p.vy+Math.cos(p.sw*.7)*5)*dt;
+      if(p.life===Infinity){ var m=p.kind==='b'?60:12; if(p.y<-m){ p.y=H+m; p.x=Math.random()*W } if(p.x<-m) p.x=W+m; if(p.x>W+m) p.x=-m }
+      var par=(4+p.z*20), x=p.x+px*par, y=p.y+py*par*.7;
+      if(p.kind==='b'){ ctx.globalAlpha=p.ba*S.a*(.75+.25*Math.sin(p.tw+=p.tws*.3*dt)); ctx.drawImage(S.bokeh[p.c],x-p.s,y-p.s,p.s*2,p.s*2); continue }
       p.tw+=p.tws*dt;
-      var tw=.35+.65*Math.pow(.5+.5*Math.sin(p.tw),2), fade=p.life===Infinity?1:Math.max(0,1-p.age/p.life);
-      var a=S.a*tw*fade*(.45+.55*p.z), r=p.s*4;
-      ctx.globalAlpha=a; ctx.drawImage(S.dot,p.x-r,p.y-r,r*2,r*2);
-      if(p.star&&tw>.8){ var q=p.s*7*tw; ctx.globalAlpha=a*.9; ctx.drawImage(S.star,p.x-q,p.y-q,q*2,q*2) }
+      var tw=.3+.7*Math.pow(.5+.5*Math.sin(p.tw),3), fade=p.life===Infinity?1:Math.max(0,1-p.age/p.life);
+      var a=S.a*tw*fade*(.4+.6*p.z), r=p.s*4;
+      ctx.globalAlpha=a; ctx.drawImage(S.dot[p.c],x-r,y-r,r*2,r*2);
+      if(p.flash>=0){                      // the grain catches the light: a star blooms and fades
+        p.flash+=dt; var f=p.flash/p.fdur;
+        if(f>=1) p.flash=-1;
+        else { var e=Math.pow(Math.sin(Math.PI*f),1.6), sz=(11+p.z*21)*e;
+          ctx.save(); ctx.translate(x,y); ctx.rotate(p.frot*f); ctx.globalAlpha=Math.min(1,S.a*1.1*e*fade); ctx.drawImage(S.star[p.c],-sz,-sz,sz*2,sz*2); ctx.restore() }
+      }
     }
     ctx.globalAlpha=1; requestAnimationFrame(frame);
   }
-  size(); seed(); addEventListener('resize',function(){ size(); seed() });
+  S=PAL.night; size(); seed(); addEventListener('resize',function(){ size(); seed() });
   if(!REDUCE) requestAnimationFrame(frame);
   return {
-    burst:function(x,y,n){ if(REDUCE) return; for(var i=0;i<n;i++) P.push(make(x-ox,y-oy,true)) },
-    trail:function(x,y){ if(REDUCE) return; var p=make(x-ox+(Math.random()-.5)*10,y-oy+(Math.random()-.5)*10,true); p.vx*=.25; p.vy=p.vy*.25+10; p.life=1+Math.random(); P.push(p) },
-    paper:function(){ mode='paper'; cv.classList.add('pin'); size(); seed() },
+    burst:function(x,y,n){ if(REDUCE) return; for(var i=0;i<n;i++){ var p=make('d',x-ox,y-oy); var ang=Math.random()*6.28, sp=30+Math.random()*90;
+      p.vx=Math.cos(ang)*sp; p.vy=Math.sin(ang)*sp-30; p.s*=1.15; p.life=1.4+Math.random()*1.4; if(Math.random()<.35){ p.flash=0; p.fdur=.6+Math.random()*.6; p.frot=Math.random()-.5 } P.push(p) } },
+    trail:function(x,y){ if(REDUCE) return; var p=make('d',x-ox+(Math.random()-.5)*10,y-oy+(Math.random()-.5)*10); p.vx*=.25; p.vy=10+Math.random()*12; p.life=1+Math.random(); if(Math.random()<.2){ p.flash=0; p.fdur=.45+Math.random()*.3; p.frot=Math.random()-.5 } P.push(p) },
+    tilt:function(x,y){ tx=x; ty=y },
+    paper:function(){ mode='paper'; S=PAL.paper; tx=ty=0; cv.classList.add('pin'); size(); lastScroll=scrollY; seed() },
     fit:function(){ size() }
   };
 })();
@@ -432,6 +459,7 @@ var startMusic=function(){};
   function viaElement(){ el=new Audio(SRC); el.loop=true; el.setAttribute('playsinline',''); try{ ac.createMediaElementSource(el).connect(gain); fadeTo(VOL,2.5) }catch(e){ el.volume=VOL } var p=el.play(); if(p&&p.catch) p.catch(function(){}) }
   startMusic=function(){
     if(started) return; started=true;
+    try{ if(navigator.audioSession) navigator.audioSession.type='playback' }catch(e){}
     try{
       ac=new (window.AudioContext||window.webkitAudioContext)(); ac.resume&&ac.resume();
       gain=ac.createGain(); gain.gain.value=.0001; gain.connect(ac.destination);
@@ -441,6 +469,11 @@ var startMusic=function(){};
     }catch(e){ try{ el=new Audio(SRC); el.loop=true; el.play() }catch(_){} }
   };
   btn.addEventListener('click',function(){ muted=!muted; btn.classList.toggle('muted',muted); if(gain) fadeTo(muted?0:VOL,.4); else if(el) el.muted=muted });
+  document.addEventListener('visibilitychange',function(){
+    if(!started) return;
+    if(document.hidden){ if(ac&&ac.suspend) ac.suspend(); if(el) el.pause() }
+    else { if(ac&&ac.resume) ac.resume(); if(el&&!muted){ var p=el.play(); if(p&&p.catch) p.catch(function(){}) } }
+  });
 })();
 
 /* ---------- cover: living 3D (idle float + finger/tilt parallax) and the opening ---------- */
@@ -495,6 +528,7 @@ var startMusic=function(){};
     tilt.style.transform='perspective(1300px) translateY('+fy.toFixed(3)+'%) rotateX('+rx.toFixed(3)+'deg) rotateY('+ry.toFixed(3)+'deg)';
     shadow.style.transform='translate('+(-ry*1.6).toFixed(2)+'px,'+(rx*1.2+fy*3).toFixed(2)+'px) scale('+(1-fy*.02).toFixed(4)+')';
     surface.style.transform='translate('+(-cx*10*amp).toFixed(2)+'px,'+(-cy*8*amp).toFixed(2)+'px)';
+    Dust.tilt(cx*amp,cy*amp);
     var fg='translate('+(cx*7*amp).toFixed(2)+'px,'+(cy*5*amp).toFixed(2)+'px)';
     title.style.transform=fg; hint.style.transform=fg;
     requestAnimationFrame(loop);
