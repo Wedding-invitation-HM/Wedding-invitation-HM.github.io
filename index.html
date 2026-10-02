@@ -43,7 +43,10 @@
 html,body{height:100%}
 body{margin:0; background:#432124 linear-gradient(180deg,#432124,#2b1517 55%,#211012); color:var(--ink); font-family:var(--it); -webkit-font-smoothing:antialiased; overflow-x:hidden}
 html.locked,body.locked{overflow:hidden; overscroll-behavior:none}
-@media (max-width:600px){ body.inv{background:var(--paper)} }
+/* iPhone Safari only draws the page behind its status bar / toolbar once the page is scrolled, so phones keep a small
+   scroll 'runway': extra backdrop above the first screen, scrolled out of view on load */
+:root{--runway:0px}
+@media (max-width:760px){ :root{--runway:62px} body.inv #invite::before{content:""; display:block; height:var(--runway); background:var(--paper)} }
 img{display:block; max-width:100%}
 .paper-bg{
   background-color:var(--paper);
@@ -55,8 +58,8 @@ img{display:block; max-width:100%}
 #dust.pin{position:fixed; inset:0; height:100%}
 
 /* ================= COVER ================= */
-:root{--cover-h:calc(100vh + 160px)}
-@supports (height:100lvh){ :root{--cover-h:calc(100lvh + 160px)} }
+:root{--cover-h:calc(100vh + var(--runway) + 200px)}
+@supports (height:100lvh){ :root{--cover-h:calc(100lvh + var(--runway) + 200px)} }
 #cover{position:absolute; left:0; top:0; width:100%; height:var(--cover-h); z-index:50; overflow:hidden; cursor:pointer; background:#3a1b1f;
   --fw:min(108vw,58vh); --fh:calc(var(--fw) * 1.42835);
   touch-action:manipulation; -webkit-user-select:none; user-select:none; -webkit-tap-highlight-color:transparent}
@@ -355,6 +358,12 @@ html.arm .fl.in{opacity:1; transition:opacity 1.8s ease .1s}
 <script>
 document.documentElement.classList.add('arm');
 document.documentElement.classList.add('locked'); document.body.classList.add('locked');
+try{ history.scrollRestoration='manual' }catch(e){}
+function runway(){ return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--runway'))||0 }
+// the colour Safari paints its bars with when it isn't showing the page itself
+function baseColour(c){ document.documentElement.style.backgroundColor=c||''; document.body.style.backgroundColor=c||'' }
+baseColour('#341a1c');
+scrollTo(0,runway());
 var REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- gold dust (depth-layered glitter, pre-rendered sprites) ---------- */
@@ -408,7 +417,8 @@ var Dust=(function(){
   return {
     burst:function(x,y,n){ if(REDUCE) return; for(var i=0;i<n;i++) P.push(make(x-ox,y-oy,true)) },
     trail:function(x,y){ if(REDUCE) return; var p=make(x-ox+(Math.random()-.5)*10,y-oy+(Math.random()-.5)*10,true); p.vx*=.25; p.vy=p.vy*.25+10; p.life=1+Math.random(); P.push(p) },
-    paper:function(){ mode='paper'; cv.classList.add('pin'); size(); seed() }
+    paper:function(){ mode='paper'; cv.classList.add('pin'); size(); seed() },
+    fit:function(){ size() }
   };
 })();
 
@@ -464,6 +474,10 @@ var startMusic=function(){};
     surface.style.setProperty('--gy',(sb.top+sb.height/2+shift-su.top).toFixed(1)+'px');
   }
   layout(); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(layout);
+  function reRunway(){ if(opened) return; scrollTo(0,runway()); Dust.fit(); layout() }
+  addEventListener('load',function(){ reRunway(); setTimeout(reRunway,300) });
+  addEventListener('orientationchange',function(){ setTimeout(reRunway,350) });
+  addEventListener('pageshow',reRunway);
   function wait(ms){ return new Promise(function(r){ setTimeout(r,ms) }) }
   function anim(el,k,o){ return el.animate(k,Object.assign({fill:'forwards'},o)) }
 
@@ -514,7 +528,8 @@ var startMusic=function(){};
   }
   function finish(viaExpander){
     invite.classList.add('show'); invite.removeAttribute('aria-hidden');
-    document.documentElement.classList.remove('locked'); document.body.classList.remove('locked'); document.body.classList.add('inv'); scrollTo(0,0);
+    document.documentElement.classList.remove('locked'); document.body.classList.remove('locked'); document.body.classList.add('inv');
+    baseColour(matchMedia('(max-width:760px)').matches?getComputedStyle(document.documentElement).getPropertyValue('--paper').trim():''); scrollTo(0,runway());
     music.classList.add('visible'); Dust.paper();
     var cd=viaExpander?450:700;
     if(canAnimate) cover.animate([{opacity:1},{opacity:0}],{duration:cd,easing:'ease',fill:'forwards'});
