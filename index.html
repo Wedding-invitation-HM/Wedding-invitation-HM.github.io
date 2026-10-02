@@ -41,8 +41,9 @@
 }
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0; background:linear-gradient(180deg,#3d181c,#2b1517 55%,#211012); color:var(--ink); font-family:var(--it); -webkit-font-smoothing:antialiased; overflow-x:hidden}
-body.locked{overflow:hidden}
+body{margin:0; background:#432124 linear-gradient(180deg,#432124,#2b1517 55%,#211012); color:var(--ink); font-family:var(--it); -webkit-font-smoothing:antialiased; overflow-x:hidden}
+html.locked,body.locked{overflow:hidden; overscroll-behavior:none}
+@media (max-width:600px){ body.inv{background:var(--paper)} }
 img{display:block; max-width:100%}
 .paper-bg{
   background-color:var(--paper);
@@ -50,18 +51,24 @@ img{display:block; max-width:100%}
     radial-gradient(130% 90% at 50% 40%, transparent 58%, var(--paper-edge) 100%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .38 0 0 0 0 .27 0 0 0 0 .16 0 0 0 .085 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-#dust{position:fixed; inset:0; width:100%; height:100%; z-index:58; pointer-events:none}
+#dust{position:absolute; left:0; top:0; width:100%; height:var(--cover-h); z-index:58; pointer-events:none}
+#dust.pin{position:fixed; inset:0; height:100%}
 
 /* ================= COVER ================= */
-#cover{position:fixed; inset:0; z-index:50; overflow:hidden; cursor:pointer; background:#2e1518;
+:root{--cover-h:calc(100vh + 160px)}
+@supports (height:100lvh){ :root{--cover-h:calc(100lvh + 160px)} }
+#cover{position:absolute; left:0; top:0; width:100%; height:var(--cover-h); z-index:50; overflow:hidden; cursor:pointer; background:#3a1b1f;
   --fw:min(108vw,58vh); --fh:calc(var(--fw) * 1.42835);
   touch-action:manipulation; -webkit-user-select:none; user-select:none; -webkit-tap-highlight-color:transparent}
 #cover:focus-visible{outline:none}
 .surface{position:absolute; inset:-5%; background:url(env-surface.webp) center/cover no-repeat; will-change:transform}
 .surface::after{content:""; position:absolute; inset:0;
-  background:radial-gradient(70% 48% at 50% 46%, rgba(255,214,170,.13), transparent 70%),
-             radial-gradient(120% 90% at 50% 45%, transparent 52%, rgba(12,3,5,.6) 100%)}
-.frame{position:absolute; left:50%; top:50%; width:var(--fw); height:var(--fh); transform:translate(-50%,-50%)}
+  background:radial-gradient(70vw 34vh at 50% var(--gy,46%), rgba(255,214,170,.13), transparent 70%),
+             radial-gradient(120vw 70vh at 50% var(--gy,45%), transparent 52%, rgba(12,3,5,.55) 100%)}
+.stage{position:fixed; inset:0; pointer-events:none; --shift:0px}
+.stage .frame{pointer-events:auto}
+@supports (container-type:size){ .stage{container-type:size} #cover{--fw:min(108cqw,60cqh)} }
+.frame{position:absolute; left:50%; top:calc(50% + var(--shift)); width:var(--fw); height:var(--fh); transform:translate(-50%,-50%)}
 .tilt,.grp{position:absolute; inset:0}
 .tilt{will-change:transform}
 .grp > *{position:absolute}
@@ -121,9 +128,9 @@ img{display:block; max-width:100%}
 .card-lock .ln{color:var(--wine)}
 
 .cover-title,.cover-hint{position:absolute; left:16px; right:16px; display:flex; flex-direction:column; align-items:center; text-align:center; pointer-events:none; will-change:transform}
-.cover-title{bottom:calc(50% + var(--fh) * .23 + 24px)}
+.cover-title{bottom:calc(50% - var(--shift) + var(--fh) * .23 + 24px)}
 .ct-ar{font-family:var(--ar); font-weight:500; color:var(--gold-light); font-size:clamp(1.05rem,4.4vw,1.4rem); line-height:2; opacity:.95}
-.cover-hint{top:calc(50% + var(--fh) * .258 + 24px); color:var(--gold-light)}
+.cover-hint{top:calc(50% + var(--shift) + var(--fh) * .258 + 24px); color:var(--gold-light)}
 .ch-in span{font-family:var(--caps); text-transform:uppercase; letter-spacing:.3em; font-size:clamp(.6rem,2.6vw,.72rem); padding-left:.3em; opacity:.88}
 .ch-in .ar{font-family:var(--ar); letter-spacing:0; text-transform:none; font-size:clamp(.88rem,3.6vw,1rem); line-height:2; padding:0}
 .ct-in,.ch-in{display:flex; flex-direction:column; align-items:center; gap:.25em; transition:opacity .6s ease, transform .6s ease}
@@ -227,6 +234,7 @@ html.arm .fl.in{opacity:1; transition:opacity 1.8s ease .1s}
 <!-- ============ COVER ============ -->
 <div id="cover" role="button" tabindex="0" aria-label="Open the wedding invitation — افتح الدعوة">
   <div class="surface" id="surface"></div>
+  <div class="stage" id="stage">
   <div class="frame" id="frame">
     <div class="frame-in">
       <div class="shadow" id="shadow"></div>
@@ -259,6 +267,7 @@ html.arm .fl.in{opacity:1; transition:opacity 1.8s ease .1s}
     <span>Tap the seal to open</span>
     <span class="ar">المس الختم لفتح الدعوة</span>
   </div></div>
+  </div>
 </div>
 <div id="expander" class="paper-bg" hidden></div>
 
@@ -345,7 +354,7 @@ html.arm .fl.in{opacity:1; transition:opacity 1.8s ease .1s}
 
 <script>
 document.documentElement.classList.add('arm');
-document.body.classList.add('locked');
+document.documentElement.classList.add('locked'); document.body.classList.add('locked');
 var REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- gold dust (depth-layered glitter, pre-rendered sprites) ---------- */
@@ -367,7 +376,8 @@ var Dust=(function(){
   }
   sprites.night={dot:sprite('255,214,140',.9), star:star('255,214,140'), comp:'lighter', a:1};
   sprites.paper={dot:sprite('176,132,52',.55), star:star('190,146,62'), comp:'source-over', a:.62};
-  function size(){ D=Math.min(devicePixelRatio||1,2); W=innerWidth; H=innerHeight; cv.width=W*D; cv.height=H*D }
+  var ox=0, oy=0;
+  function size(){ D=Math.min(devicePixelRatio||1,2); var b=cv.getBoundingClientRect(); ox=b.left; oy=b.top; W=b.width||innerWidth; H=b.height||innerHeight; cv.width=Math.round(W*D); cv.height=Math.round(H*D) }
   function make(x,y,burst){
     var z=Math.random(), p={x:x==null?Math.random()*W:x, y:y==null?Math.random()*H:y, z:z,
       s:.7+z*2.1, vy:-(16+z*42), vx:(Math.random()-.5)*18, sw:Math.random()*6.28, sws:.4+Math.random()*.8,
@@ -396,9 +406,9 @@ var Dust=(function(){
   size(); seed(); addEventListener('resize',function(){ size(); seed() });
   if(!REDUCE) requestAnimationFrame(frame);
   return {
-    burst:function(x,y,n){ if(REDUCE) return; for(var i=0;i<n;i++) P.push(make(x,y,true)) },
-    trail:function(x,y){ if(REDUCE) return; var p=make(x+(Math.random()-.5)*10,y+(Math.random()-.5)*10,true); p.vx*=.25; p.vy=p.vy*.25+10; p.life=1+Math.random(); P.push(p) },
-    paper:function(){ mode='paper'; seed() }
+    burst:function(x,y,n){ if(REDUCE) return; for(var i=0;i<n;i++) P.push(make(x-ox,y-oy,true)) },
+    trail:function(x,y){ if(REDUCE) return; var p=make(x-ox+(Math.random()-.5)*10,y-oy+(Math.random()-.5)*10,true); p.vx*=.25; p.vy=p.vy*.25+10; p.life=1+Math.random(); P.push(p) },
+    paper:function(){ mode='paper'; cv.classList.add('pin'); size(); seed() }
   };
 })();
 
@@ -426,7 +436,7 @@ var startMusic=function(){};
 /* ---------- cover: living 3D (idle float + finger/tilt parallax) and the opening ---------- */
 (function(){
   var $=function(id){return document.getElementById(id)};
-  var cover=$('cover'), frame=$('frame'), tilt=$('tilt'), grp=$('grp'), shadow=$('shadow'), surface=$('surface'),
+  var cover=$('cover'), stage=$('stage'), frame=$('frame'), tilt=$('tilt'), grp=$('grp'), shadow=$('shadow'), surface=$('surface'),
       title=$('coverTitle'), hint=$('coverHint'), flaps=$('flaps'), tflap=$('tflap'), tshade=$('tshade'), tshadow=$('tshadow'),
       pL=$('pL'), pR=$('pR'), pB=$('pB'), card=$('card'), cardIn=$('cardIn'), dove=$('dove'), exp=$('expander'), invite=$('invite'), music=$('music');
   var canAnimate=!!Element.prototype.animate, opened=false, ready=false;
@@ -442,7 +452,18 @@ var startMusic=function(){};
   }
   function rest(){ var p=persp(); setFlap(tflap,'X',0,p); setFlap(pB,'X',0,p); setFlap(pL,'Y',0,p); setFlap(pR,'Y',0,p) }
   var easeIO=function(x){ x=Math.max(0,Math.min(1,x)); return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2 };
-  rest(); addEventListener('resize',function(){ if(!opened) rest() });
+  rest(); addEventListener('resize',function(){ if(!opened){ rest(); layout() } });
+  // centre title + envelope + hint as one group inside the visible area, and aim the backdrop's glow at the envelope
+  function layout(){
+    var sh=stage.clientHeight, fh=frame.offsetHeight, th=title.offsetHeight, hh=hint.offsetHeight;
+    var shift=(th-hh+fh*(.23-.258))/2,
+        lo=fh*.23+24+th+12-sh/2, hi=sh/2-fh*.258-24-hh-12;   // keep 12px clear of the top and bottom edges
+    shift=lo<=hi?Math.max(lo,Math.min(hi,shift)):(lo+hi)/2;
+    stage.style.setProperty('--shift',shift.toFixed(1)+'px');
+    var sb=stage.getBoundingClientRect(), su=surface.getBoundingClientRect();
+    surface.style.setProperty('--gy',(sb.top+sb.height/2+shift-su.top).toFixed(1)+'px');
+  }
+  layout(); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(layout);
   function wait(ms){ return new Promise(function(r){ setTimeout(r,ms) }) }
   function anim(el,k,o){ return el.animate(k,Object.assign({fill:'forwards'},o)) }
 
@@ -493,7 +514,7 @@ var startMusic=function(){};
   }
   function finish(viaExpander){
     invite.classList.add('show'); invite.removeAttribute('aria-hidden');
-    document.body.classList.remove('locked'); scrollTo(0,0);
+    document.documentElement.classList.remove('locked'); document.body.classList.remove('locked'); document.body.classList.add('inv'); scrollTo(0,0);
     music.classList.add('visible'); Dust.paper();
     var cd=viaExpander?450:700;
     if(canAnimate) cover.animate([{opacity:1},{opacity:0}],{duration:cd,easing:'ease',fill:'forwards'});
@@ -549,7 +570,7 @@ var startMusic=function(){};
     await wait(550);                            // hold: the card with the monogram sits open in the envelope
     // 4) the envelope slides away, the card comes forward to the centre
     card.parentNode.style.zIndex=3;               // the card stays in front while the envelope slides away
-    var r=card.getBoundingClientRect(), D=innerHeight*.9, dy=innerHeight/2-(r.top+r.height/2), DUR=1050, ez2='cubic-bezier(.55,0,.22,1)';
+    var sb=stage.getBoundingClientRect(), r=card.getBoundingClientRect(), D=sb.height*.9, dy=sb.top+sb.height/2-(r.top+r.height/2), DUR=1050, ez2='cubic-bezier(.55,0,.22,1)';
     anim(flaps,[{transform:'translateY(0px)',opacity:1},{transform:'translateY('+D+'px)',opacity:0}],{duration:DUR,easing:'cubic-bezier(.5,0,.75,.4)'});
     anim(shadow,[{opacity:.35},{opacity:0}],{duration:DUR*.6});
     var cp=Math.round(card.offsetHeight*4);
@@ -560,10 +581,11 @@ var startMusic=function(){};
     await wait(DUR*.72);
     anim(cardIn,[{opacity:1},{opacity:0}],{duration:280});
     await wait(DUR*.28+80);
-    var c=card.getBoundingClientRect(), vw=innerWidth, vh=innerHeight, L=Math.max(0,(vw-Math.min(vw,600))/2);
-    exp.hidden=false; card.style.visibility='hidden';
+    exp.hidden=false;
+    var c=card.getBoundingClientRect(), e=exp.getBoundingClientRect(), vw=e.width, L=Math.max(0,(vw-Math.min(vw,600))/2);
+    card.style.visibility='hidden';
     exp.animate([
-      {clipPath:'inset('+c.top+'px '+(vw-c.right)+'px '+(vh-c.bottom)+'px '+c.left+'px round 3px)'},
+      {clipPath:'inset('+(c.top-e.top)+'px '+(e.right-c.right)+'px '+(e.bottom-c.bottom)+'px '+(c.left-e.left)+'px round 3px)'},
       {clipPath:'inset(0px '+L+'px 0px '+L+'px round 0px)'}],{duration:880,easing:'cubic-bezier(.7,0,.16,1)',fill:'forwards'});
     await wait(900);
     finish(true);
