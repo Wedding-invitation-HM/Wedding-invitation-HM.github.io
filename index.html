@@ -9,7 +9,7 @@
 <meta property="og:description" content="Friday 20 November 2026 · 7:00 PM · El Masa Wedding Hall, Banha">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://wedding-invitation-hm.github.io/">
-<meta property="og:image" content="https://wedding-invitation-hm.github.io/og.jpg?v=5">
+<meta property="og:image" content="https://wedding-invitation-hm.github.io/og.jpg?v=6">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -127,7 +127,7 @@ img{display:block; max-width:100%; -webkit-touch-callout:none; -webkit-user-drag
 .ln{position:absolute; top:calc(var(--mh) * .705); font-family:var(--script); font-weight:400; line-height:1; white-space:nowrap; font-size:var(--nf)}
 .ln-l{right:calc(50% + var(--mh) * .036 + var(--gap,10px) + .1em)}
 .ln-r{left:calc(50% + var(--mh) * .036 + var(--gap,10px) + .1em)}
-.cover-lock{--mh:calc(var(--fw) * .27); --nf:calc(var(--fw) * .118); --gap:6px}
+.cover-lock{--mh:calc(var(--fw) * .3); --nf:calc(var(--fw) * .118); --gap:6px}
 .cover-lock .ln{color:#f1dfb8; text-shadow:0 2px 16px rgba(0,0,0,.4)}
 .card-lock{--mh:calc(var(--fh) * .4584 * .6); --nf:calc(var(--fw) * .078); --gap:5px}
 .card-lock .ln{color:var(--wine)}
@@ -185,6 +185,19 @@ img{display:block; max-width:100%; -webkit-touch-callout:none; -webkit-user-drag
 .when .big{font-family:var(--it); font-weight:400; color:var(--wine); font-size:clamp(3.3rem,15vw,4.3rem); line-height:.95; padding:0 .3em; border-left:1px solid rgba(176,141,74,.55); border-right:1px solid rgba(176,141,74,.55); font-variant-numeric:lining-nums}
 .month{font-family:var(--caps); text-transform:uppercase; letter-spacing:.36em; padding-left:.36em; font-size:clamp(.72rem,3vw,.86rem); font-weight:500; color:var(--gold-deep); margin-top:12px}
 .ar-date{font-family:var(--ar); direction:rtl; color:var(--ink-soft); font-size:clamp(.95rem,4vw,1.08rem); line-height:2.2; margin-top:2px}
+.countdown{position:relative; width:100%; max-width:340px; margin-top:clamp(28px,7vw,38px); padding:18px 10px 12px; border:1px solid rgba(176,141,74,.55); display:flex; flex-direction:column; align-items:center}
+.countdown::before{content:""; position:absolute; inset:4px; border:1px solid rgba(176,141,74,.25); pointer-events:none}
+.countdown::after{content:""; position:absolute; left:50%; top:-4px; width:7px; height:7px; margin-left:-3.5px; transform:rotate(45deg); background:var(--paper); border:1px solid var(--gold)}
+.cd-lbl{font-family:var(--it); font-style:italic; font-weight:500; color:var(--ink-soft); font-size:clamp(1.05rem,4.4vw,1.2rem); line-height:1.2}
+.cd-lbl-ar{font-family:var(--ar); color:var(--gold-deep); font-size:clamp(.86rem,3.6vw,.96rem); line-height:2}
+.cd-row{display:grid; grid-template-columns:1fr auto 1fr auto 1fr auto 1fr; align-items:stretch; width:100%; margin-top:6px}
+.cd-u{display:flex; flex-direction:column; align-items:center; min-width:0}
+.cd-n{display:inline-block; font-family:var(--it); font-weight:500; color:var(--wine); font-size:clamp(2.1rem,9.6vw,2.7rem); line-height:1.05; font-variant-numeric:lining-nums tabular-nums; will-change:transform}
+.cd-en{font-family:var(--caps); text-transform:uppercase; letter-spacing:.2em; padding-left:.2em; font-size:clamp(.5rem,2.2vw,.6rem); font-weight:500; color:var(--gold-deep); margin-top:6px}
+.cd-ar{font-family:var(--ar); color:var(--ink-soft); font-size:clamp(.78rem,3.3vw,.88rem); line-height:1.9}
+.cd-sep{width:1px; margin:6px 0 10px; background:linear-gradient(180deg,rgba(176,141,74,0),rgba(176,141,74,.6),rgba(176,141,74,0))}
+.cd-done{font-family:var(--it); font-style:italic; font-weight:500; color:var(--wine); font-size:clamp(1.2rem,5vw,1.4rem); line-height:1.5; padding:6px 0 4px; text-align:center}
+.cd-done .ar{display:block; font-family:var(--ar); font-style:normal; font-size:.9em; line-height:2}
 .venue{margin-top:clamp(22px,6vw,32px)}
 .lbl{font-family:var(--caps); text-transform:uppercase; letter-spacing:.32em; padding-left:.32em; font-size:clamp(.6rem,2.5vw,.7rem); color:var(--gold-deep); font-weight:500}
 .lbl .ar{font-family:var(--ar); letter-spacing:0; font-size:1.3em; line-height:1}
@@ -241,6 +254,16 @@ html.arm .rv-when .side{opacity:0} html.arm .rv-when .side:first-child{transform
 html.arm .rv-when.in .side{opacity:1; transform:none; transition:opacity 1s ease calc(var(--d,0s) + .7s), transform 1.2s cubic-bezier(.2,.7,.2,1) calc(var(--d,0s) + .7s)}
 html.arm .rv-when .big{opacity:0; transform:scale(1.18)}
 html.arm .rv-when.in .big{opacity:1; transform:none; transition:opacity 1.2s ease calc(var(--d,0s) + .35s), transform 1.6s cubic-bezier(.2,.7,.2,1) calc(var(--d,0s) + .35s)}
+/* countdown: the frame opens from the centre, the units rise one by one */
+html.arm .rv-count{clip-path:inset(-8px 50% -8px 50%)}
+html.arm .rv-count.in{clip-path:inset(-8px -4px -8px -4px); transition:clip-path 1.5s cubic-bezier(.65,.05,.25,1) var(--d,0s)}
+html.arm .rv-count .cd-lbl,html.arm .rv-count .cd-lbl-ar,html.arm .rv-count .cd-u,html.arm .rv-count .cd-sep{opacity:0; transform:translateY(12px)}
+html.arm .rv-count.in .cd-lbl,html.arm .rv-count.in .cd-lbl-ar,html.arm .rv-count.in .cd-u,html.arm .rv-count.in .cd-sep{opacity:1; transform:none; transition:opacity 1s ease var(--cd), transform 1.2s cubic-bezier(.2,.7,.2,1) var(--cd)}
+html.arm .rv-count .cd-lbl{--cd:calc(var(--d,0s) + .5s)} html.arm .rv-count .cd-lbl-ar{--cd:calc(var(--d,0s) + .65s)}
+html.arm .rv-count .cd-u:nth-child(1){--cd:calc(var(--d,0s) + .85s)} html.arm .rv-count .cd-sep:nth-child(2){--cd:calc(var(--d,0s) + .95s)}
+html.arm .rv-count .cd-u:nth-child(3){--cd:calc(var(--d,0s) + 1.05s)} html.arm .rv-count .cd-sep:nth-child(4){--cd:calc(var(--d,0s) + 1.15s)}
+html.arm .rv-count .cd-u:nth-child(5){--cd:calc(var(--d,0s) + 1.25s)} html.arm .rv-count .cd-sep:nth-child(6){--cd:calc(var(--d,0s) + 1.35s)}
+html.arm .rv-count .cd-u:nth-child(7){--cd:calc(var(--d,0s) + 1.45s)}
 /* venue lines rise in turn */
 html.arm .rv-stag > *{opacity:0; transform:translateY(14px)}
 html.arm .rv-stag.in > *{opacity:1; transform:none; transition:opacity 1s ease var(--sd), transform 1.2s cubic-bezier(.2,.7,.2,1) var(--sd)}
@@ -289,7 +312,7 @@ html.arm .frame-line{opacity:0} html.arm .paper.lit .frame-line{opacity:1; trans
 @keyframes scShimmer{0%{background-position:100% 0} 55%,100%{background-position:0 0}}
 
 @media (prefers-reduced-motion:reduce){
-  html.arm .rv,html.arm .rv *,html.arm .rv-lines .l,html.arm .rv-words .w,html.arm .rv-rule *,html.arm .rv-when,html.arm .rv-when *,html.arm .rv-stag > *,html.arm .fl,html.arm .map .route,html.arm .map .pin,html.arm .rv-write,html.arm .rv-write svg,html.arm .inv-lock *{transition:none!important; animation:none!important}
+  html.arm .rv,html.arm .rv *,html.arm .rv-lines .l,html.arm .rv-words .w,html.arm .rv-rule *,html.arm .rv-when,html.arm .rv-when *,html.arm .rv-count,html.arm .rv-count *,html.arm .rv-stag > *,html.arm .fl,html.arm .map .route,html.arm .map .pin,html.arm .rv-write,html.arm .rv-write svg,html.arm .inv-lock *{transition:none!important; animation:none!important}
   .scroll-cue *{animation:none!important}
 }
 
@@ -336,7 +359,7 @@ html.arm .frame-line{opacity:0} html.arm .paper.lit .frame-line{opacity:1; trans
   </div>
   <div class="cover-title" id="coverTitle"><div class="ct-in">
     <span class="ct-ar">دعوة زفاف</span>
-    <div class="lockup cover-lock"><div class="mono-wrap"><img src="monogram-gold.webp" alt="م ح"></div><span class="ln ln-l">Hazem</span><span class="ln ln-r">Menna</span></div>
+    <div class="lockup cover-lock"><div class="mono-wrap"><img src="monogram-gold.webp" alt="م ح"></div></div>
   </div></div>
   <div class="cover-hint" id="coverHint"><div class="ch-in">
     <span>Tap the seal to open</span>
@@ -387,6 +410,13 @@ html.arm .frame-line{opacity:0} html.arm .paper.lit .frame-line{opacity:1; trans
       </div>
       <div class="month rv">November 2026</div>
       <div class="ar-date rv">الجمعة ٢٠ نوفمبر ٢٠٢٦ · السابعة مساءً</div>
+
+      <div class="countdown rv-count" id="countdown" role="timer" aria-label="Countdown to the wedding — العد التنازلي">
+        <div class="cd-lbl">Counting down to forever</div>
+        <div class="cd-lbl-ar">العد التنازلي لليلة العمر</div>
+        <div class="cd-row"><div class="cd-u"><span class="cd-n" data-u="d">00</span><span class="cd-en">Days</span><span class="cd-ar">أيام</span></div><i class="cd-sep"></i><div class="cd-u"><span class="cd-n" data-u="h">00</span><span class="cd-en">Hours</span><span class="cd-ar">ساعات</span></div><i class="cd-sep"></i><div class="cd-u"><span class="cd-n" data-u="m">00</span><span class="cd-en">Minutes</span><span class="cd-ar">دقائق</span></div><i class="cd-sep"></i><div class="cd-u"><span class="cd-n" data-u="s">00</span><span class="cd-en">Seconds</span><span class="cd-ar">ثوانٍ</span></div></div>
+        <div class="cd-done" hidden></div>
+      </div>
 
       <div class="venue rv-stag">
         <div class="lbl">Venue &nbsp;·&nbsp; <span class="ar">المكان</span></div>
@@ -549,6 +579,27 @@ var startMusic=function(){};
   });
 })();
 
+/* ---------- countdown to Friday 20 November 2026, 7:00 PM Cairo time ---------- */
+(function(){
+  var T=Date.UTC(2026,10,20,17,0,0), box=document.getElementById('countdown'); if(!box) return;
+  var els={}, last={};
+  [].forEach.call(box.querySelectorAll('.cd-n'),function(n){ els[n.getAttribute('data-u')]=n });
+  function pad(v){ return v<10?'0'+v:''+v }
+  function set(k,v){
+    if(last[k]===v) return; var first=last[k]===undefined; last[k]=v; els[k].textContent=v;
+    if(!first&&!REDUCE&&els[k].animate) els[k].animate([{transform:'translateY(.35em)',opacity:0,filter:'blur(2px)'},{transform:'none',opacity:1,filter:'blur(0)'}],{duration:620,easing:'cubic-bezier(.2,.7,.2,1)'});
+  }
+  function done(en,ar){ var d=box.querySelector('.cd-done'); box.querySelector('.cd-row').hidden=true; d.hidden=false; d.innerHTML=en+'<span class="ar">'+ar+'</span>' }
+  function tick(){
+    var ms=T-Date.now();
+    if(ms<=0){ if(ms>-6*3600e3) done('Tonight is the night','الليلة ليلة العمر'); else done('Thank you for celebrating with us','شكرًا لمشاركتكم فرحتنا'); return false }
+    var s=Math.floor(ms/1000);
+    set('d',pad(Math.floor(s/86400))); set('h',pad(Math.floor(s%86400/3600))); set('m',pad(Math.floor(s%3600/60))); set('s',pad(s%60));
+    return true;
+  }
+  if(tick()) (function loop(){ setTimeout(function(){ if(tick()) loop() },1000-Date.now()%1000+15) })();
+})();
+
 /* ---------- cover: living 3D (idle float + finger/tilt parallax) and the opening ---------- */
 (function(){
   var $=function(id){return document.getElementById(id)};
@@ -633,7 +684,7 @@ var startMusic=function(){};
       });
     });
     $('paper').classList.add('lit');
-    var items=[].slice.call(document.querySelectorAll('.rv,.fl,.inv-lock,.rv-write,.rv-lines,.rv-words,.rv-rule,.rv-when,.rv-stag')), vh=innerHeight, i=0;
+    var items=[].slice.call(document.querySelectorAll('.rv,.fl,.inv-lock,.rv-write,.rv-lines,.rv-words,.rv-rule,.rv-when,.rv-stag,.rv-count')), vh=innerHeight, i=0;
     items.forEach(function(el){ var r=el.getBoundingClientRect(); if(r.top<vh*.92){ if(!el.style.getPropertyValue('--d')) el.style.setProperty('--d',(.12+i*.1).toFixed(2)+'s'); i++; el.classList.add('in') } });
     if('IntersectionObserver' in window){
       var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target) } }) },{rootMargin:'0px 0px -8% 0px',threshold:.12});
